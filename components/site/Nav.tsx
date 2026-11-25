@@ -6,6 +6,7 @@ import { Mark } from "@/components/Logo";
 import { DotScene, type Scene } from "./DotScene";
 import { Icon } from "./icons";
 import { WalletButton } from "./WalletButton";
+import { SITE } from "@/lib/site";
 import s from "./site.module.css";
 
 type Entry = { href: string; icon: string; t: string; d: string; live?: boolean; note?: string; soon?: boolean };
@@ -25,7 +26,8 @@ const GROUPS: Group[] = [
   {
     label: "Developers",
     items: [
-      { href: "/console/keys", icon: "key", t: "API keys", d: "One Wisp key for every model in the catalog", note: "wisp_" },
+      { href: "/console/keys", icon: "key", t: "API keys", d: "One Wisp key for every model in the catalog", note: "wsp_" },
+      { href: SITE.socials.github, icon: "code", t: "Source code", d: "The whole app, open on GitHub", note: "github" },
       { href: "/console/models", icon: "grid", t: "Models", d: "Ids, context windows and live prices", note: "catalog" },
       { href: "/changelog", icon: "doc", t: "Changelog", d: "What changed, newest first" },
       { href: "/status", icon: "spark", t: "Status", d: "Whether every service answers right now" },

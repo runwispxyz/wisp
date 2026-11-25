@@ -24,7 +24,7 @@ const topSave = Math.max(...MODELS.map((m) => discount(m) ?? 0));
 const cheapIn = Math.min(...MODELS.filter((m) => m.kind === "chat").map((m) => m.price[0]));
 
 const FEATURES: { t: string; d: string; chips: [string, boolean?, boolean?][]; icon: string; scene: Scene; span: string }[] = [
-  { t: "One key, many models", d: "Chat and image models behind one wallet, one balance and one key. Video and music are coming soon.", chips: [["wisp_3k9…a1c", false, true], [`${MODELS.length} models on this key`, true]], icon: "key", scene: "key", span: s.f7 },
+  { t: "One key, many models", d: "Chat and image models behind one wallet, one balance and one key. Video and music are coming soon.", chips: [["wsp_3k9…a1c", false, true], [`${MODELS.length} models on this key`, true]], icon: "key", scene: "key", span: s.f7 },
   { t: "Identity removed", d: "Your wallet, IP address and user agent come off before a request leaves us. Calls go out under one shared key.", chips: [["IP removed"], ["user agent removed"], ["shared key", true]], icon: "shield", scene: "scan", span: s.f5 },
   { t: "Sealed models", d: "A few open-weight models will run on attested hardware that neither the host nor Wisp can read.", chips: [["attested hardware"], ["next", true]], icon: "lock", scene: "rings", span: s.f4 },
   { t: "History in your browser", d: "Chats and media live on your device. Export them or wipe them whenever you like.", chips: [["local only"], ["export"], ["wipe"]], icon: "screen", scene: "grid", span: s.f4 },

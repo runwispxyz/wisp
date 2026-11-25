@@ -10,7 +10,7 @@ export const SITE = {
   // Shown until the contract is set in /admin; after that the live totalSupply() is read from the chain.
   initialSupply: "1,000,000,000",
   holderMinUsd: 20,
-  socials: { x: "[X LINK]" },
+  socials: { x: "[X LINK]", github: "https://github.com/runwispxyz/wisp" },
 };
 
 export const NAV = [

@@ -9,7 +9,7 @@ import s from "@/components/site/site.module.css";
 
 const COLS: [string, [string, string][]][] = [
   ["Products", [["/chat", "Wisp Chat"], ["/console", "Wisp Console"], ["/console/playground", "Playground"], ["/console/models", "Models"]]],
-  ["Developers", [["/console/keys", "API keys"], ["/console/models", "Model ids"], ["/console/usage", "Usage"], ["/console/logs", "Logs"], ["/changelog", "Changelog"], ["/status", "Status"], ["/whitepaper", "Whitepaper"]]],
+  ["Developers", [["/console/keys", "API keys"], ["/console/models", "Model ids"], ["/console/usage", "Usage"], ["/console/logs", "Logs"], ["/changelog", "Changelog"], ["/status", "Status"], ["/whitepaper", "Whitepaper"], [SITE.socials.github, "GitHub"]]],
   ["Learn", [["/about", "About"], ["/thesis", "Thesis"], ["/pricing", "Pricing"], ["/blog", "Blog"], ["/token", "Token"]]],
 ];
 
@@ -26,7 +26,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <p className={s.fLogo}><Mark size={44} /><span className={s.fWord}>wisp</span></p>
             <p className={s.fLine}>Wisp is private AI, paid per use. The model gets the question, never the person asking.</p>
             <div className={s.reach}>
-              <span className="btn btn-sm"><Icon name="x" size={12} />{SITE.socials.x}</span>
+              <a className="btn btn-sm" href={SITE.socials.github} target="_blank" rel="noreferrer"><Icon name="code" size={12} />GitHub</a>
+              {!SITE.socials.x.startsWith("[") && <a className="btn btn-sm" href={SITE.socials.x} target="_blank" rel="noreferrer"><Icon name="x" size={12} />X</a>}
             </div>
           </div>
           <dl className={s.manifest}>

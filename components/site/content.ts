@@ -34,7 +34,7 @@ export const POSTS: Post[] = [
     summary: "Point base_url at the Wisp gateway and keep the OpenAI SDK code you already have.",
     body: [
       "The Wisp gateway speaks the OpenAI chat completions format. If your code uses the OpenAI SDK, you change the base URL and the key, and that is it.",
-      "In Python: client = OpenAI(base_url=\"https://<your-wisp-host>/v1\", api_key=\"wisp_...\"). In JavaScript it is the same two options.",
+      "In Python: client = OpenAI(base_url=\"https://runwisp.xyz/v1\", api_key=\"wsp_...\"). In JavaScript it is the same two options.",
       "Streaming works. Each stream ends with a receipt comment that standard SDKs ignore and our own clients read, so you can see what the call cost.",
       "Images run as jobs on the same key: start one, poll it, fetch the result once. The result is deleted after you fetch it.",
     ],
