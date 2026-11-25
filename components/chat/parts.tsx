@@ -145,13 +145,13 @@ export function Badges({ m, locked }: { m: Model; locked?: boolean }) {
 
 export function PrivacyMenu() {
   return (
-    <Popover center className={s.pp} popClass={s.ppPop} ariaLabel="Privacy: Private, Anonymized"
-      label={<><Icon name="shield" className={s.ppIco} /><span className={s.ppT}>Private<i>·</i>Anonymized</span><span className={s.caret} aria-hidden /></>}>
+    <Popover center className={s.pp} popClass={s.ppPop} ariaLabel="Privacy tier: Anonymized"
+      label={<><Icon name="shield" className={s.ppIco} /><span className={s.ppT}>Privacy<i>·</i>Anonymized</span><span className={s.caret} aria-hidden /></>}>
       {() => (
         <>
           <div className={s.ppOpt} data-on="true">
             <span className={s.ppBox}><Icon name="shield" /></span>
-            <span><b>Anonymized</b>Wallet, IP and device details are stripped before the host sees your prompt.</span>
+            <span><b>Anonymized</b>Wallet, IP and device details are stripped before the host sees your prompt. The host still reads the prompt to answer it.</span>
           </div>
           <div className={s.ppOpt} data-soon="true">
             <span className={s.ppBox}><Icon name="lock" /></span>

@@ -8,7 +8,7 @@ import { KIND_ICON, MakerMark, cap, kindVar } from "./parts";
 import s from "./site.module.css";
 
 const KINDS: Kind[] = SHOWN_KINDS;
-const HINT: Record<Kind, string> = { chat: "Ask anything, privately", image: "Describe an image", video: "Describe a short clip", music: "Describe a song" };
+const HINT: Record<Kind, string> = { chat: "Ask anything, anonymously", image: "Describe an image", video: "Describe a short clip", music: "Describe a song" };
 const UNIT: Record<Kind, string> = { chat: "for a 500-token reply", image: "per image", video: "for an 8-second clip", music: "per song" };
 
 export function AskBox() {

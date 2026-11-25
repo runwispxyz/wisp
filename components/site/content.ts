@@ -85,7 +85,7 @@ export const ROADMAP: { label: string; state: "live" | "next" | "later" }[] = [
 ];
 
 export const FAQ: { q: string; a: string }[] = [
-  { q: "What does private mean on Wisp?", a: "Your wallet, IP address and client details are stripped before a request leaves us, and the call goes out under a shared key. We keep no copy of prompts or replies. The host still reads the content to answer it, so today's tier is called Anonymized. Sealed models, coming next, run on attested hardware that no one can read." },
+  { q: "What does anonymized mean on Wisp?", a: "Your wallet, IP address and client details are stripped before a request leaves us, and the call goes out under a shared key. We keep no copy of prompts or replies, but we do keep one billing row per call (model, tokens, cost) tied to your account, so Wisp itself knows which account made each call. The host still reads the content to answer it, so today's tier is called Anonymized. Sealed models, coming next, run on attested hardware that no one can read." },
   { q: "How are prices set?", a: "Each model has a Wisp price per use, shown before every call and on every receipt. We only compare with a maker's list price once we have checked it on the maker's own page." },
   { q: "Do I need an account?", a: "No. You need a wallet. Sign one message to sign in. There is no email, no password and no form. Free models work with a small trial even before that." },
   { q: "How do I pay?", a: "Send USDG on Robinhood Chain to your own deposit address. Each call holds its worst case, then charges what it really used. A call that fails before any output costs nothing." },

@@ -311,7 +311,7 @@ export default function Home() {
         <div className={s.wash} aria-hidden />
         <div className={s.joinIn}>
           <Eyebrow icon="arrow" label="Get started" note="three steps" center />
-          <h2 className={s.joinTitle}><span>Private AI,</span><span>paid per use</span></h2>
+          <h2 className={s.joinTitle}><span>Anonymized AI,</span><span>paid per use</span></h2>
           <p className={s.joinBody}>Open Wisp Chat, connect a wallet and ask your first question, or take a key from Wisp Console and point your SDK at the gateway.</p>
           <div className={s.joinActions}>
             <Link href="/chat" className="btn btn-primary">Open Wisp Chat</Link>

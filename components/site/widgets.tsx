@@ -152,7 +152,7 @@ export function HowItWorks({ model = "nemotron-3.5-lightning" }: { model?: strin
     <div className={s.window}>
       <div className={s.stage}>
         <div className={s.stageArt}><DotScene scene="portal" /></div>
-        <span className={s.req}><i />request · {model}<span className={s.barTag}>private</span></span>
+        <span className={s.req}><i />request · {model}<span className={s.barTag}>anonymized</span></span>
         <div key={"a" + i} className={`${s.hChip} ${s.chipA}`}><b>{a[0]}</b>{a[1]}</div>
         <div key={"b" + i} className={`${s.hChip} ${s.chipB}`}><b>{b[0]}</b>{b[1]}</div>
         <ul className={s.stations}>

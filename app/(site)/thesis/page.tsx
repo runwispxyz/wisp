@@ -8,7 +8,7 @@ export default function Thesis() {
     <Doc
       eyebrow="Thesis"
       title={<>AI should cost less <em>and know less</em> about you</>}
-      lead="An essay on why one private balance across every model is worth building."
+      lead="An essay on why one balance across every model, with your identity removed, is worth building."
       sections={[
         { id: "problem", title: "The problem", body: [
           "Using models from several makers means an account with each, a card on file with each, and an invoice from each. Every request carries a trail back to the person who sent it: an email, a billing address, an IP, a device.",

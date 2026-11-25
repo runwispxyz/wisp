@@ -24,7 +24,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <div className={s.fGridF}>
           <div className={s.fBrand}>
             <p className={s.fLogo}><Mark size={44} /><span className={s.fWord}>wisp</span></p>
-            <p className={s.fLine}>Wisp is private AI, paid per use. The model gets the question, never the person asking.</p>
+            <p className={s.fLine}>Wisp is anonymized AI, paid per use. The model gets the question, never the person asking.</p>
             <div className={s.reach}>
               <a className="btn btn-sm" href={SITE.socials.github} target="_blank" rel="noreferrer"><Icon name="code" size={12} />GitHub</a>
               {!SITE.socials.x.startsWith("[") && <a className="btn btn-sm" href={SITE.socials.x} target="_blank" rel="noreferrer"><Icon name="x" size={12} />X</a>}
@@ -32,7 +32,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </div>
           <dl className={s.manifest}>
             <div><dt>identity</dt><dd>wisp</dd></div>
-            <div><dt>category</dt><dd>Private AI inference</dd></div>
+            <div><dt>category</dt><dd>Anonymized AI inference</dd></div>
             <div><dt>chain</dt><dd>{SITE.chain}</dd></div>
           </dl>
           <nav className={s.cols} aria-label="Footer">

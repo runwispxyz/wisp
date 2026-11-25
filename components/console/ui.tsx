@@ -222,8 +222,8 @@ export function SignInPage({ title, sub }: { title: string; sub: string }) {
           <section className={`${s.c} ${s.siC} ${s.isPrivate}`} aria-labelledby="si-private">
             <span className={`${s.tile} ${s.tileSm}`}><Pix art={TILES.private} /></span>
             <div>
-              <h2 id="si-private">Your prompts stay yours</h2>
-              <p className={s.lbl} style={{ marginTop: 5 }}>Wisp strips who you are from each request and keeps only the billing row.</p>
+              <h2 id="si-private">No copy of your prompts</h2>
+              <p className={s.lbl} style={{ marginTop: 5 }}>Wisp strips who you are before the host sees a request, and keeps only a billing row tied to your account.</p>
             </div>
           </section>
         </aside>

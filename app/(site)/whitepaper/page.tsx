@@ -4,7 +4,7 @@ import { Doc } from "@/components/site/Doc";
 import { MODELS } from "@/lib/models";
 import { SITE } from "@/lib/site";
 
-export const metadata = { title: "Whitepaper", description: "The Wisp design: private inference paid per use, in seven sections." };
+export const metadata = { title: "Whitepaper", description: "The Wisp design: anonymized inference paid per use, in seven sections." };
 
 export const dynamic = "force-dynamic"; // supply is read from the live contract
 
@@ -14,7 +14,7 @@ export default async function Whitepaper() {
     <Doc
       toc
       eyebrow="Whitepaper · v1.0 draft"
-      title={<>Private inference, <em>paid per use</em></>}
+      title={<>Anonymized inference, <em>paid per use</em></>}
       lead={`Wisp replaces many accounts and many credentials with one wallet, one prepaid balance and one key. Every call passes ${SITE.gateway}, where its worst-case cost is held and every field that identifies the caller is removed.`}
       meta={<><span className="pill">v1.0</span><span className="pill">November 2026</span><span className="pill">draft for discussion</span><Link href="/console/playground" className="btn btn-sm">Read the docs</Link></>}
       sections={[

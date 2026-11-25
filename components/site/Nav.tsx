@@ -16,7 +16,7 @@ const GROUPS: Group[] = [
   {
     label: "Products",
     items: [
-      { href: "/chat", icon: "chat", t: "Wisp Chat", d: "Chat and image models in one private window", live: true },
+      { href: "/chat", icon: "chat", t: "Wisp Chat", d: "Chat and image models with your identity removed", live: true },
       { href: "/console", icon: "grid", t: "Wisp Console", d: "Keys, usage, credit and the Playground", live: true },
       { href: "/console/playground", icon: "code", t: "Playground", d: "Try any model with your own settings", live: true },
       { href: "/console/sealed", icon: "lock", t: "Sealed models", d: "Open-weight models on attested hardware", soon: true },
@@ -38,12 +38,12 @@ const GROUPS: Group[] = [
     label: "Learn",
     items: [
       { href: "/about", icon: "door", t: "About", d: "What Wisp is and how we work", note: "company" },
-      { href: "/thesis", icon: "spark", t: "Thesis", d: "Why private, pay-per-use AI is worth building", note: "why" },
+      { href: "/thesis", icon: "spark", t: "Thesis", d: "Why anonymized, pay-per-use AI is worth building", note: "why" },
       { href: "/pricing", icon: "coin", t: "Pricing", d: "What every model costs per use", note: "prices" },
       { href: "/whitepaper", icon: "doc", t: "Whitepaper", d: "The design, section by section", note: "v1" },
       { href: "/blog", icon: "doc", t: "Blog", d: "Notes from the people building Wisp", note: "articles" },
     ],
-    feature: { href: "/thesis", t: "Less cost, less known about you", d: "The case for one private balance across every model.", scene: "orb" },
+    feature: { href: "/thesis", t: "Less cost, less known about you", d: "The case for one balance across every model.", scene: "orb" },
   },
 ];
 
