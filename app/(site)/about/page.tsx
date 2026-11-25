@@ -9,7 +9,7 @@ export default function About() {
   return (
     <Doc
       eyebrow="About"
-      title={<>A gateway that <em>forgets you</em> on purpose</>}
+      title={<>A gateway that <em>hides you</em> from the model</>}
       lead="Wisp is private AI inference, paid per use. We build the gateway, the chat app and the console, and we try to know as little about you as we can."
       sections={[
         { id: "what", title: "What Wisp is", body: [
