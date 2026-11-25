@@ -104,7 +104,7 @@ export default function Home() {
               <ul className={s.ledger}>
                 <li><span>Your prompt</span><b>not kept</b></li>
                 <li><span>The reply or the media</span><b>not kept</b></li>
-                <li><span>Wallet, IP, device</span><b>kept from the host</b></li>
+                <li><span>Wallet, IP, device</span><b>removed before the host</b></li>
                 <li className={s.keeps}><span>Billing rows</span><b>model, tokens, cost · 30 days</b></li>
               </ul>
             </li>

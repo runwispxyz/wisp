@@ -135,7 +135,7 @@ const PHASES = ["Signed in", "Identity removed", "Answered", "Settled"];
 const CHIPS: [string, string][][] = [
   [["Wallet", "0x8f…4c2, kept as a hash"], ["Session", "one signature, no email"]],
   [["Removed", "wallet, IP address, user agent"], ["Shared key", "the host sees Wisp"]],
-  [["Answer", "streamed back to you"], ["Content", "no copy kept"]],
+  [["Answer", "streamed back to you"], ["Content", "not stored; billing row kept 30 days"]],
   [["Held", "$0.020 worst case"], ["Charged", "$0.0014, the rest released"]],
 ];
 /** You → Wisp → model, cycling through the four phases of one request. */

@@ -110,7 +110,7 @@ export function AskBox() {
             {([["wallet", 7.15], ["IP", 4.95], ["device", 3.85]] as const).map(([f, w]) => (
               <span key={f} className={s.field}><span>{f}</span><i style={{ width: `${w}em` }} /><span className={s.vh}>removed</span></span>
             ))}
-            <span className={s.kept}>no copy kept</span>
+            <span className={s.kept}>prompt not stored</span>
           </span>
         </div>
       </div>
