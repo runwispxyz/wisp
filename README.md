@@ -24,7 +24,7 @@ Config lives in `.env.local` (server only). `NVIDIA_API_KEY` runs every chat mod
 - **Sign-in**: SIWE (EIP-4361). `/api/auth/nonce` → wallet signs → `/api/auth/verify` checks domain, chain id, expiry, signature, one-time nonce → httpOnly session cookie (24 h). No wallet in the browser? A local demo wallet signs instead.
 - **Money**: integer micro-USD in SQLite (`data/wisp.db`, Node's built-in `node:sqlite`). Every call **holds** its worst case, then **settles** what it used and releases the rest; a call that fails before any output costs nothing.
 - **Keys**: `wsp_…`, stored as SHA-256 only, shown once. Each has an optional spend cap, expiry and model allow-list.
-- **Privacy**: requests leave under one pooled provider key with no client IP, user agent or wallet; host fields are stripped from replies; only a billing row is kept. Media files are deleted from the server on first download.
+- **Privacy**: requests leave under one pooled provider key with no client IP, user agent or wallet; host fields are stripped from replies; only a billing row is kept, and rows older than 30 days are deleted (`purgeOldCalls` in `lib/db.ts`, run hourly). Media files are deleted from the server on first download.
 - **Chain**: with `RPC_URL` empty the chain is mocked (simulate deposits and token holdings from the console). Set `RPC_URL`, `USDG_ADDRESS`, `TOKEN_ADDRESS` to read real `Transfer` logs into each account's HD-derived deposit address and real `balanceOf` for Holder Credit.
 - **Holder Credit**: each finished hour, `HOLDER_POOL_USD_PER_HOUR` is split across wallets holding at least `HOLDER_MIN_USD` of the token, pro rata, as platform credit.
 - **Free trial**: 30 prompts (10 media) per browser on models marked `free`, no wallet.

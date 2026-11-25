@@ -52,6 +52,13 @@ export const db: DatabaseSync =
 
 export const now = () => Date.now();
 
+/** Per-call billing rows link an account to its usage, so they are kept only as long as the app reads them (usage, spend: 30 days). */
+export const CALL_RETENTION_DAYS = 30;
+export function purgeOldCalls(at = now()) {
+  // open holds are never purged: they still have to settle or be released
+  return db.prepare("delete from calls where status != 'held' and created < ?").run(at - CALL_RETENTION_DAYS * 86400_000).changes;
+}
+
 export function meta(k: string, init?: () => string): string | undefined {
   const row = db.prepare("select v from meta where k = ?").get(k) as { v: string } | undefined;
   if (row) return row.v;

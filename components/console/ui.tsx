@@ -173,7 +173,7 @@ export function SignIn() {
           {busy && step && <p className={s.status} role="status">{STEP_SAY[step]}</p>}
           <ErrorNote error={error} />
         </div>
-        <p className={s.sgnNote}>Wisp keeps your wallet address and one billing row per request. It never stores a prompt, a reply or a file.</p>
+        <p className={s.sgnNote}>Wisp keeps your wallet address and one billing row per request for 30 days. It never stores a prompt, a reply or a file.</p>
       </div>
     </section>
   );
@@ -223,7 +223,7 @@ export function SignInPage({ title, sub }: { title: string; sub: string }) {
             <span className={`${s.tile} ${s.tileSm}`}><Pix art={TILES.private} /></span>
             <div>
               <h2 id="si-private">No copy of your prompts</h2>
-              <p className={s.lbl} style={{ marginTop: 5 }}>Wisp strips who you are before the host sees a request, and keeps only a billing row tied to your account.</p>
+              <p className={s.lbl} style={{ marginTop: 5 }}>Wisp strips who you are before the host sees a request, and keeps only a billing row tied to your account, deleted after 30 days.</p>
             </div>
           </section>
         </aside>

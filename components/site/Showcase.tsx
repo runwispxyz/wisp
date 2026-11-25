@@ -57,7 +57,7 @@ const SCREENS = [
           <b style={{ color: "var(--text)", fontSize: 14, fontWeight: 400 }}>What reached the model</b>
           {["wallet address", "IP address", "user agent", "device details"].map((f) => <div key={f} className={s.privRow}><s>{f}</s><span>removed</span></div>)}
           <div className={s.privRow}><span style={{ color: "var(--text)" }}>your question</span><span style={{ color: "var(--accent)" }}>sent, not kept</span></div>
-          <div className={s.privRow}><span>billing row</span><span>model, tokens, cost</span></div>
+          <div className={s.privRow}><span>billing row</span><span>model, tokens, cost · 30 days</span></div>
         </div>
       </div>
     ),

@@ -30,7 +30,7 @@ export default async function Whitepaper() {
         { id: "tiers", title: "Privacy tiers", body: [
           <p key="a"><strong>Anonymized.</strong> Identity removed, no content kept, host reads content to answer under its own policy. All models today.</p>,
           <p key="s"><strong>Sealed.</strong> Model runs on attested hardware; the client verifies the attestation before sending; neither the host nor Wisp can read the content. Planned for selected open-weight models.</p>,
-          "Billing rows keep the account, model, token counts and cost, so Wisp can link an account to its usage; the model host cannot. Chat history is stored only in the user's browser.",
+          "Billing rows keep the account, model, token counts and cost, so Wisp can link an account to its usage for 30 days, after which the rows are deleted; the model host cannot link them at all. Chat history is stored only in the user's browser.",
         ] },
         { id: "pricing", title: "Pricing and billing", body: [
           "Prices are set per model and shown before each call. A list-price comparison appears only after it is checked on the maker's own page, with the date.",

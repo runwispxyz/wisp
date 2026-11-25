@@ -4,4 +4,7 @@ export async function register() {
   if (process.env.NEXT_PHASE === "phase-production-build") return; // never start timers while building
   const { startChainWatcher } = await import("./lib/chain");
   startChainWatcher();
+  const { purgeOldCalls } = await import("./lib/db");
+  purgeOldCalls();
+  setInterval(() => { try { purgeOldCalls(); } catch (e) { console.error("[purge]", e); } }, 3600_000).unref();
 }

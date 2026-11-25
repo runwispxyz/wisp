@@ -32,7 +32,7 @@ function Inner() {
 
   return (
     <>
-      <Head art="logs" title="Logs" sub="The latest 200 calls. Wisp keeps one billing row per call, never the prompt or the reply.">
+      <Head art="logs" title="Logs" sub="Your calls from the last 30 days, up to 200. Wisp keeps one billing row per call, never the prompt or the reply, and deletes rows after 30 days.">
         <button className={s.btn} onClick={exportCsv} disabled={!rows.length}>Export CSV</button>
         <button className={`${s.btn} ${s.quiet}`} onClick={a.reload}>Refresh</button>
       </Head>

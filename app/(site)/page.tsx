@@ -105,7 +105,7 @@ export default function Home() {
                 <li><span>Your prompt</span><b>not kept</b></li>
                 <li><span>The reply or the media</span><b>not kept</b></li>
                 <li><span>Wallet, IP, device</span><b>kept from the host</b></li>
-                <li className={s.keeps}><span>Billing rows</span><b>model, tokens, cost</b></li>
+                <li className={s.keeps}><span>Billing rows</span><b>model, tokens, cost · 30 days</b></li>
               </ul>
             </li>
             <li className={s.fact}>
@@ -179,7 +179,7 @@ export default function Home() {
           <HowItWorks />
           <div className={s.notes}>
             <div className={s.hNote}><p className={s.noteTitle}>Identity removed</p><p className={s.noteBody}>Wallet, IP address and client details are dropped before a request leaves our servers, and every call goes out under one shared key.</p></div>
-            <div className={s.hNote}><p className={s.noteTitle}>No content kept</p><p className={s.noteBody}>No copy of prompts or outputs. Wisp does keep one billing row per call, tied to your account: the model, the token counts and the cost.</p></div>
+            <div className={s.hNote}><p className={s.noteTitle}>No content kept</p><p className={s.noteBody}>No copy of prompts or outputs. Wisp does keep one billing row per call, tied to your account: the model, the token counts and the cost. Rows older than 30 days are deleted.</p></div>
           </div>
         </div>
         <div className={s.moreRow}><Link href="/thesis#privacy" className={s.link}>How privacy works</Link></div>
