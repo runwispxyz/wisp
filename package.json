@@ -1,12 +1,13 @@
 {
   "name": "wisp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Private AI gateway paid per use: site, console, chat and an OpenAI-compatible API on Robinhood Chain.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test --experimental-strip-types lib/*.test.ts"
+    "test": "node --test --experimental-strip-types lib/*.test.ts components/chat/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
