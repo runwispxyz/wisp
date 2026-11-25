@@ -14,3 +14,4 @@ data
 # unreleased launch posts and previews
 brand/x/posts
 public/logo-preview.html
+!.env.example
