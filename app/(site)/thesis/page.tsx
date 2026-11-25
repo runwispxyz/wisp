@@ -21,7 +21,7 @@ export default function Thesis() {
         { id: "privacy", title: "Privacy, plainly", body: [
           "Here is what happens to a request on Wisp. Your wallet signs you in; the server stores only a keyed hash of the address. When you send a call, the gateway holds its worst-case cost against your balance.",
           "Before the call leaves, the gateway drops your wallet, IP address, user agent and any header that points back to you. The call goes to the host under a shared key.",
-          "The host reads the messages to answer them. That is the Anonymized tier: the host knows the question, not the person. We keep no copy of prompts or replies. Billing keeps the model, the token counts and the cost.",
+          "The host reads the messages to answer them. That is the Anonymized tier: the host knows the question, not the person. We keep no copy of prompts or replies. Wisp itself does know which account made each call: billing keeps the model, the token counts and the cost, tied to your wallet's account.",
           "The Sealed tier, coming next, closes the remaining gap. Models run on attested hardware, the client checks the attestation before sending, and neither the host nor Wisp can read the content.",
           "Your chat history stays in your browser. You can export it or wipe it. We cannot hand over what we never stored.",
         ] },

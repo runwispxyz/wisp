@@ -49,8 +49,8 @@ export default function Home() {
         <div className={s.homeBg} aria-hidden><DotScene scene="hero" /></div>
         <div className={s.heroHead}>
           <h1 className={s.heroTitle}>
-            <span><em className={s.inkA}>Wisp</em> hears the <em className={s.inkB}>question</em>,</span>
-            <span>it never learns <em className={s.inkC}>who asked</em></span>
+            <span><em className={s.inkA}>Wisp</em> sends the <em className={s.inkB}>question</em>,</span>
+            <span>never <em className={s.inkC}>who asked</em></span>
           </h1>
           <p className={s.heroLine}>Chat and image models, paid per use, with nothing you send kept.{HC && ` Holding ${SITE.ticker} earns model credit every hour.`}</p>
           <HeroCA contract={contract} />
@@ -156,7 +156,7 @@ export default function Home() {
 
       <section className={s.band}>
         <Edge l={0} m={0} r={1} />
-        <Head icon="spark" label="Features" note="what you get" lit="One key and one balance," title="with no idea who you are" />
+        <Head icon="spark" label="Features" note="what you get" lit="One key and one balance," title="and the model has no idea who you are" />
         <ul className={s.fGrid}>
           {FEATURES.map((f) => (
             <li key={f.t} className={`${s.surface} ${s.dotfill} ${s.fCard} ${f.span}`}>
@@ -179,7 +179,7 @@ export default function Home() {
           <HowItWorks />
           <div className={s.notes}>
             <div className={s.hNote}><p className={s.noteTitle}>Identity removed</p><p className={s.noteBody}>Wallet, IP address and client details are dropped before a request leaves our servers, and every call goes out under one shared key.</p></div>
-            <div className={s.hNote}><p className={s.noteTitle}>No content kept</p><p className={s.noteBody}>No copy of prompts or outputs. Billing keeps the model, the token counts and the cost, nothing more.</p></div>
+            <div className={s.hNote}><p className={s.noteTitle}>No content kept</p><p className={s.noteBody}>No copy of prompts or outputs. Wisp does keep one billing row per call, tied to your account: the model, the token counts and the cost.</p></div>
           </div>
         </div>
         <div className={s.moreRow}><Link href="/thesis#privacy" className={s.link}>How privacy works</Link></div>
