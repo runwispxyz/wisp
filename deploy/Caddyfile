@@ -1,0 +1,18 @@
+# The reverse proxy block that serves runwisp.xyz, as deployed. There is no `log` directive,
+# so Caddy writes no access log for these sites: request IPs are not written to disk.
+runwisp.xyz, console.runwisp.xyz, chat.runwisp.xyz {
+	# no compression on the streaming chat endpoint, so tokens are not buffered
+	@compressible not path /v1/chat/completions
+	encode @compressible zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	reverse_proxy 127.0.0.1:3010
+}
+
+www.runwisp.xyz {
+	redir https://runwisp.xyz{uri} permanent
+}

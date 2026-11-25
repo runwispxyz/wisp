@@ -52,7 +52,7 @@ export default function Home() {
             <span><em className={s.inkA}>Wisp</em> sends the <em className={s.inkB}>question</em>,</span>
             <span>never <em className={s.inkC}>who asked</em></span>
           </h1>
-          <p className={s.heroLine}>Chat and image models, paid per use, with nothing you send kept.{HC && ` Holding ${SITE.ticker} earns model credit every hour.`}</p>
+          <p className={s.heroLine}>Chat and image models, paid per use, with no copy of your prompts or replies kept.{HC && ` Holding ${SITE.ticker} earns model credit every hour.`}</p>
           <HeroCA contract={contract} />
         </div>
         <div className={s.heroFoot}><AskBox /></div>

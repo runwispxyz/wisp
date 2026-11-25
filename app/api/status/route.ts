@@ -1,4 +1,9 @@
-import { db } from "@/lib/db";
+import { CALL_RETENTION_DAYS, db } from "@/lib/db";
+
+function billingRows(t: number) {
+  const r = db.prepare("select count(*) n, min(created) oldest from calls where status != 'held'").get() as { n: number; oldest: number | null };
+  return { count: r.n, oldest_days: r.oldest == null ? null : Math.floor(((t - r.oldest) / 86400_000) * 10) / 10, deleted_after_days: CALL_RETENTION_DAYS };
+}
 import { upstreamOk } from "@/lib/nvidia";
 import { watcherHealth } from "@/lib/chain";
 import { MODELS } from "@/lib/models";
@@ -32,6 +37,8 @@ export async function GET() {
     ],
     // the exact commit this server runs, so the public repo can be checked against what is deployed
     build: process.env.NEXT_PUBLIC_BUILD_SHA || null,
+    // retention you can watch: rows are deleted after CALL_RETENTION_DAYS, so oldest_days should never exceed it
+    billing_rows: billingRows(t),
     models: MODELS.map((m) => {
       const s = stats.find((x) => x.model === m.id);
       return { id: m.id, name: m.name, kind: m.kind, demo: !!m.demo, calls24h: s?.n ?? 0, failed24h: s?.failed ?? 0, ok: m.demo ? true : host && (!s || s.failed < s.n) };

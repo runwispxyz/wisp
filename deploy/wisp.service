@@ -1,0 +1,29 @@
+[Unit]
+Description=Wisp web (Next.js standalone, port 3010)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=wisp
+Group=wisp
+WorkingDirectory=/opt/wisp/app
+# secrets (keys, seed, password hash) live in this file on the server, never in the repo
+EnvironmentFile=/opt/wisp/.env
+Environment=NODE_ENV=production
+Environment=PORT=3010
+Environment=HOSTNAME=127.0.0.1
+Environment="NODE_OPTIONS=--max-old-space-size=192 --disable-warning=ExperimentalWarning"
+ExecStart=/opt/wisp/node/bin/node server.js
+Restart=always
+RestartSec=5
+# keep the small box usable for the other apps
+MemoryHigh=220M
+MemoryMax=320M
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/wisp/data
+
+[Install]
+WantedBy=multi-user.target

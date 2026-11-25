@@ -186,7 +186,7 @@ export function Catalog() {
             </div>
             <div className={s.tReceives}>
               <span className={s.recLabel}>The model receives</span>
-              <span className={s.echo}>your prompt, and nothing else</span>
+              <span className={s.echo}>your prompt and settings, nothing about you</span>
               <span className={s.stripped}>
                 {([["wallet", 7.15], ["IP", 4.95], ["device", 3.85]] as const).map(([f, w]) => <span key={f} className={s.field}><span>{f}</span><i style={{ width: `${w}em` }} /></span>)}
                 <span className={s.kept}>no copy kept</span>

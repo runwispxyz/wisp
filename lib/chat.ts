@@ -2,9 +2,7 @@ import { getModel, chatCost, type Model } from "./models";
 import { hold, settle, type Hold } from "./billing";
 import { err, keyBlocks, type Auth } from "./auth";
 import { upstreamChat } from "./nvidia";
-
-type Msg = { role: string; content: unknown };
-const MAX_OUT = 8192;
+import { buildUpstreamBody, maxOutOf, pick, type Msg } from "./upstream";
 
 /** ~4 chars per token; images count as 1k tokens. Used only for the hold, never the charge when usage comes back. */
 export function estimateTokens(messages: Msg[]) {
@@ -30,7 +28,7 @@ export async function handleChat(req: Request, caller: ChatCaller, body: Record<
   const messages = body.messages as Msg[] | undefined;
   if (!Array.isArray(messages) || !messages.length) return err(400, "messages is required");
 
-  const maxOut = Math.min(Number(body.max_tokens ?? body.max_completion_tokens ?? 2048) || 2048, MAX_OUT);
+  const maxOut = maxOutOf(body);
   const estIn = estimateTokens(messages);
   const worst = chatCost(m, estIn * 1.2, maxOut)!;
   const block = keyBlocks(caller.auth?.key, m, worst);
@@ -39,14 +37,7 @@ export async function handleChat(req: Request, caller: ChatCaller, body: Record<
   if (!h) return err(402, "Balance too low for this call's hold. Top up and try again.", "insufficient_balance");
 
   const stream = body.stream === true;
-  const upstreamBody = {
-    model: m.upstream,
-    messages,
-    max_tokens: maxOut,
-    stream,
-    ...(stream ? { stream_options: { include_usage: true } } : {}),
-    ...pick(body, ["temperature", "top_p", "stop", "tools", "tool_choice", "response_format", "seed", "presence_penalty", "frequency_penalty"]),
-  };
+  const upstreamBody = buildUpstreamBody(m, body, messages, maxOut);
 
   let up: Response;
   try {
@@ -142,7 +133,4 @@ function clean(j: Record<string, unknown>, m: Model) {
   const { system_fingerprint, nvext, ...rest } = j as Record<string, unknown> & { system_fingerprint?: unknown; nvext?: unknown };
   void system_fingerprint; void nvext;
   return { ...rest, model: m.id };
-}
-function pick(o: Record<string, unknown>, keys: string[]) {
-  return Object.fromEntries(keys.filter((k) => o[k] !== undefined).map((k) => [k, o[k]]));
 }

@@ -105,7 +105,7 @@ export function AskBox() {
         )}
         <div className={s.receives}>
           <span className={s.recLabel}>The model receives</span>
-          <span className={s.echo}>{q.trim() ? `“${q.trim()}”` : `your ${kind === "chat" ? "question" : "prompt"}, and nothing else`}</span>
+          <span className={s.echo}>{q.trim() ? `“${q.trim()}”` : `your ${kind === "chat" ? "question" : "prompt"} and settings, nothing about you`}</span>
           <span className={s.stripped}>
             {([["wallet", 7.15], ["IP", 4.95], ["device", 3.85]] as const).map(([f, w]) => (
               <span key={f} className={s.field}><span>{f}</span><i style={{ width: `${w}em` }} /><span className={s.vh}>removed</span></span>

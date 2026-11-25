@@ -8,8 +8,14 @@ const headers = () => ({
   "User-Agent": "wisp",
 });
 
+/** The exact request a chat call sends upstream. Used by the real call and by the public preview (/v1/outgoing). */
+export function chatRequest(body: Record<string, unknown>) {
+  return { url: `${BASE}/chat/completions`, method: "POST", headers: headers(), body };
+}
+
 export function upstreamChat(body: Record<string, unknown>, signal?: AbortSignal) {
-  return fetch(`${BASE}/chat/completions`, { method: "POST", headers: headers(), body: JSON.stringify(body), signal });
+  const r = chatRequest(body);
+  return fetch(r.url, { method: r.method, headers: r.headers, body: JSON.stringify(r.body), signal });
 }
 
 export async function upstreamImage(model: string, prompt: string): Promise<Buffer> {
