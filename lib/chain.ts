@@ -96,14 +96,28 @@ async function scanPass() {
 
 let inflight: Promise<void> | null = null;
 let lastPass = 0;
+let lastOk = 0;
+let lastError = "";
 /** Run a scan now unless one ran in the last 5 s; concurrent callers share the same pass. */
 export function scanDeposits(): Promise<void> {
   if (MOCK_CHAIN) return Promise.resolve();
   if (inflight) return inflight;
   if (now() - lastPass < 5000) return Promise.resolve();
-  const p = scanPass().finally(() => { inflight = null; lastPass = now(); });
+  const p = scanPass()
+    .then(() => { lastOk = now(); lastError = ""; })
+    .catch((e) => { lastError = (e as Error)?.message || String(e); throw e; })
+    .finally(() => { inflight = null; lastPass = now(); });
   inflight = p;
   return p;
+}
+
+/** Real state of the deposit watcher for the status page: healthy only if a scan finished in the last 2 minutes. */
+export function watcherHealth(): { ok: boolean; note: string } {
+  if (MOCK_CHAIN) return { ok: true, note: "mock chain" };
+  const cursor = meta("scan_cursor");
+  if (!lastOk) return { ok: false, note: lastError ? `deposit scan failing: ${lastError.slice(0, 80)}` : "deposit scan starting" };
+  const ago = Math.round((now() - lastOk) / 1000);
+  return { ok: ago < 120, note: `deposits scanned to block ${cursor ? BigInt(cursor) - 1n : "?"}, ${ago} s ago` };
 }
 
 /** Started once from instrumentation.ts: scan every 10 s, sweep Holder Credit every minute. */

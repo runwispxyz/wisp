@@ -9,6 +9,8 @@ const KEEP = "(?!api(?:/|$)|v1(?:/|$)|_next(?:/|$)|console(?:/|$)|chat(?:/|$)|.*
 const config: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   output: "standalone",
+  // BUILD_SHA is set by the deploy to the pushed commit, so anyone can check the live build against the public repo
+  env: { NEXT_PUBLIC_BUILD_SHA: process.env.BUILD_SHA || "" },
   // console.<domain> → /console/*, chat.<domain> → /chat. Done as internal rewrites (not middleware),
   // so it also works behind a TLS proxy, where a middleware rewrite tried to fetch https://localhost.
   async rewrites() {

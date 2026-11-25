@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { upstreamOk } from "@/lib/nvidia";
-import { MOCK_CHAIN } from "@/lib/chain";
+import { watcherHealth } from "@/lib/chain";
 import { MODELS } from "@/lib/models";
 export const dynamic = "force-dynamic";
 
@@ -28,8 +28,10 @@ export async function GET() {
       { name: "API", ok: host && dbOk, note: `${ms} ms to the model host` },
       { name: "Chat", ok: dbOk, note: "" },
       { name: "Console", ok: dbOk, note: "" },
-      { name: "Chain", ok: true, note: MOCK_CHAIN ? "mock chain" : "RPC" },
+      { name: "Chain", ...watcherHealth() },
     ],
+    // the exact commit this server runs, so the public repo can be checked against what is deployed
+    build: process.env.NEXT_PUBLIC_BUILD_SHA || null,
     models: MODELS.map((m) => {
       const s = stats.find((x) => x.model === m.id);
       return { id: m.id, name: m.name, kind: m.kind, demo: !!m.demo, calls24h: s?.n ?? 0, failed24h: s?.failed ?? 0, ok: m.demo ? true : host && (!s || s.failed < s.n) };

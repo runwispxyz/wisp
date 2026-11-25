@@ -7,6 +7,8 @@ import { Icon } from "@/components/site/icons";
 import { SITE } from "@/lib/site";
 import s from "@/components/site/site.module.css";
 
+const BUILD = process.env.NEXT_PUBLIC_BUILD_SHA; // the commit this deploy was built from
+
 const COLS: [string, [string, string][]][] = [
   ["Products", [["/chat", "Wisp Chat"], ["/console", "Wisp Console"], ["/console/playground", "Playground"], ["/console/models", "Models"]]],
   ["Developers", [["/console/keys", "API keys"], ["/console/models", "Model ids"], ["/console/usage", "Usage"], ["/console/logs", "Logs"], ["/changelog", "Changelog"], ["/status", "Status"], ["/whitepaper", "Whitepaper"], [SITE.socials.github, "GitHub"]]],
@@ -45,7 +47,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </div>
         <div className={s.base}>
-          <p>© 2026 {SITE.name}</p>
+          <p>© 2026 {SITE.name}{BUILD && <> · build <a href={`${SITE.socials.github}/commit/${BUILD}`} target="_blank" rel="noopener noreferrer" className="mono">{BUILD.slice(0, 7)}</a></>}</p>
           <p>Not financial advice. {SITE.ticker} carries no promise of value. Not affiliated with Robinhood Markets, Inc.</p>
         </div>
       </footer>

@@ -11,7 +11,7 @@ const POINTS = [
 export default function Sealed() {
   return (
     <>
-      <Head art="sealed" title="Sealed" sub="Coming next. Today Wisp strips who you are from each request; Sealed goes further and runs the model where nobody, us included, can see what you sent." />
+      <Head art="sealed" title="Sealed" sub="Not built yet: nothing on this page runs today. Today Wisp strips who you are from each request; Sealed goes further and runs the model where nobody, us included, can see what you sent." />
       <div className={s.bento}>
         <Card star title="Sealed models" note="Not open yet" className={s.s8}>
           <span className={`${s.big}`}><Pix art={MARKS.sealed} cell={18} gap={4} /></span>
