@@ -1,0 +1,16 @@
+node_modules
+.next
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# secrets and runtime data: never commit
+.env*
+data
+
+# local tooling
+.claude
+.playwright-mcp
+
+# unreleased launch posts and previews
+brand/x/posts
+public/logo-preview.html
