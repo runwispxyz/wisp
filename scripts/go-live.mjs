@@ -18,7 +18,7 @@ const LIVE = {
   USDG_ADDRESS: "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168", // Paxos + Robinhood docs, checked on-chain: USDG, 6 decimals
   USDG_DECIMALS: "6",
   TOKEN_PRICE_USD: "0", // no price feed yet: $WISP deposits wait for review
-  HOLDER_POOL_USD_PER_HOUR: "0", // Holder Credit off until the swap tax is wired in
+  HOLDER_POOL_USD_PER_HOUR: "0", // Holder Credit off until there is a funded pool; the site then says "planned"
   HOLDER_MIN_TOKENS: "0",
   REDEEM_CODES: "",
   CONFIRMATIONS: "20",

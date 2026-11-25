@@ -1,6 +1,6 @@
 # Wisp
 
-Private AI inference below list price: one wallet, one balance, one key. One Next.js app serves three surfaces:
+Anonymized AI inference, paid per use: one wallet, one balance, one key. The model host never sees your wallet, IP or device; Wisp keeps one billing row per call, never the prompt. One Next.js app serves three surfaces:
 
 | Path | What | Subdomain (via `rewrites` in `next.config.ts`) |
 |---|---|---|

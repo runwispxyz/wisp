@@ -5,7 +5,7 @@ export const POSTS: Post[] = [
   {
     slug: "wisp-is-live",
     title: "Wisp is live",
-    date: "2026-11-24",
+    date: "2026-11-25",
     summary: "One wallet, one balance and one key for chat and image models, with your identity left behind.",
     body: [
       "Today Wisp opens to everyone. You sign in with a wallet, top up a balance, and call any model in the catalog from Wisp Chat or from your own code.",
@@ -18,7 +18,7 @@ export const POSTS: Post[] = [
   {
     slug: "one-key-for-every-model",
     title: "One key for every model",
-    date: "2026-11-24",
+    date: "2026-11-25",
     summary: "Why a single key and a single prepaid balance beat a drawer full of accounts.",
     body: [
       "A key from Wisp Console works for every chat model in the catalog, and the same key starts image jobs.",
@@ -30,7 +30,7 @@ export const POSTS: Post[] = [
   {
     slug: "change-one-line",
     title: "Change one line",
-    date: "2026-11-24",
+    date: "2026-11-25",
     summary: "Point base_url at the Wisp gateway and keep the OpenAI SDK code you already have.",
     body: [
       "The Wisp gateway speaks the OpenAI chat completions format. If your code uses the OpenAI SDK, you change the base URL and the key, and that is it.",
@@ -42,7 +42,7 @@ export const POSTS: Post[] = [
   {
     slug: "what-leaves-our-servers",
     title: "What leaves our servers",
-    date: "2026-11-24",
+    date: "2026-11-25",
     summary: "A plain list of what the model host gets, and what it never gets.",
     body: [
       "The model host gets the messages you sent and the settings you chose, like temperature and max tokens. That is all.",
@@ -54,7 +54,7 @@ export const POSTS: Post[] = [
   {
     slug: "anonymized-now-sealed-next",
     title: "Anonymized now, sealed next",
-    date: "2026-11-24",
+    date: "2026-11-25",
     summary: "Two privacy tiers, and what changes when a model runs on attested hardware.",
     body: [
       "Every model on Wisp carries a tier label. Today all of them are Anonymized: your identity is removed, but the host can read the content to answer it.",
@@ -66,10 +66,9 @@ export const POSTS: Post[] = [
 ];
 
 export const CHANGELOG: { date: string; title: string; items: string[] }[] = [
-  { date: "2026-11-24", title: "Public launch", items: ["Wisp Chat, Wisp Console and the API are open.", "Status page shows every service and model, refreshed every 30 seconds.", "Home page lets you ask a free model without a wallet."] },
-  { date: "2026-11-21", title: "Media jobs", items: ["Image jobs run on the same key as chat.", "Each job is priced before it runs and charged only when the result arrives.", "Results are deleted from our servers once fetched."] },
-  { date: "2026-11-18", title: "Holds and receipts", items: ["Every call holds its worst case, then settles to what it used.", "Streams end with a receipt: charged, tokens, and the fields removed.", "A call that fails before any output releases its hold in full."] },
-  { date: "2026-11-14", title: "Wallet sign-in", items: ["Sign in by signing one message, no email and no password.", "Deposits in USDG on Robinhood Chain to your own deposit address."] },
+  // Real dates only: the domain, the repo and the first deploy are all from 2026-11-25.
+  { date: "2026-11-26", title: "Plainer wording, open source", items: ["The site says Anonymized, not Private, and states that Wisp keeps one billing row per call tied to your account.", "Swap-tax and holder-reward claims removed; Holder Credit is shown as planned until it is switched on.", "The source is public on GitHub, with tests and a CI check on every push.", "Wisp Chat now tells you when the browser cannot save or load your chats."] },
+  { date: "2026-11-25", title: "Public launch", items: ["Wisp Chat, Wisp Console and the OpenAI-compatible API open at runwisp.xyz.", "Sign in by signing one message, no email and no password. Top up in USDG on Robinhood Chain to your own deposit address.", "Every call holds its worst case, then settles to what it used, and streams end with a receipt. A call that fails before any output releases its hold in full.", "Image jobs run on the same key, priced before they run; results are deleted from our servers once fetched.", "Status page refreshed every 30 seconds, and a free trial on the home page without a wallet."] },
 ];
 
 export const ROADMAP: { label: string; state: "live" | "next" | "later" }[] = [
