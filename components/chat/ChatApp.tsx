@@ -86,8 +86,8 @@ export default function ChatApp() {
     chatRef.current = f(chatRef.current);
     setChatState(chatRef.current);
   }, []);
-  const reload = useCallback(() => listChats().then(setChats).catch(() => {}), []);
-  const loadTrial = useCallback(() => fetch("/api/trial", { cache: "no-store" }).then((r) => r.json()).then(setTrial).catch(() => {}), []);
+  const reload = useCallback(() => listChats().then(setChats).catch(() => setNotice("Could not read your saved chats from this browser.")), []);
+  const loadTrial = useCallback(() => fetch("/api/trial", { cache: "no-store" }).then((r) => r.json()).then(setTrial).catch(() => setNotice("Could not load the free-prompt count. Refresh to try again.")), []);
 
   // restore history and the chat named in ?c=
   useEffect(() => {
@@ -214,7 +214,7 @@ export default function ChatApp() {
       }
     }
     setBusy(null);
-    if (!here()) { if (!temporary) await putChat({ ...local, updatedAt: Date.now() }).catch(() => {}); reload(); return; }
+    if (!here()) { if (!temporary) await putChat({ ...local, updatedAt: Date.now() }).catch(() => setNotice("Could not save that chat in the browser.")); reload(); return; }
     setChat((x) => ({ ...x, updatedAt: Date.now() }));
     await save();
   }
@@ -294,7 +294,7 @@ export default function ChatApp() {
 
   return (
     <div className={s.app} data-folded={folded}>
-      <div className={s.overlay} data-open={drawer} onClick={() => setDrawer(false)} />
+      <button type="button" className={s.overlay} data-open={drawer} onClick={() => setDrawer(false)} aria-label="Close the chat list" tabIndex={drawer ? 0 : -1} />
       <aside className={s.side} data-open={drawer} aria-label="Chats">
         <div className={s.brand}>
           <a href="/" className={s.brandLink}><Logo suffix=" chat" /></a>

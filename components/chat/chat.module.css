@@ -314,7 +314,7 @@
 
 /* ---------- mobile tab bar ---------- */
 .tabbar { display: none; }
-.overlay { display: none; }
+.overlay { display: none; border: 0; padding: 0; margin: 0; cursor: default; }
 
 /* messages */
 .user { align-self: flex-end; max-width: 85%; background: var(--bg-2); border: 1px solid var(--line); padding: 10px 14px; white-space: pre-wrap; overflow-wrap: anywhere; }

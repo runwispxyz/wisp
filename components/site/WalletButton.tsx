@@ -64,7 +64,7 @@ export function WalletButton({ block }: { block?: boolean }) {
               <p className={s.walletErr} role="alert">{err}</p>
               {!hasInjectedWallet() && (
                 <p className={s.walletNote}>Add MetaMask or Rabby and reload, or open this page in your wallet app&apos;s browser.{" "}
-                  <a href="https://metamask.io/download/" target="_blank" rel="noreferrer">Get MetaMask ↗</a></p>
+                  <a href="https://metamask.io/download/" target="_blank" rel="noopener noreferrer">Get MetaMask ↗</a></p>
               )}
             </>
           )}

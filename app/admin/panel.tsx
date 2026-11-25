@@ -59,7 +59,7 @@ export function AdminPanel({ signedIn, contract }: { signedIn: boolean; contract
             <div style={{ display: "flex", gap: 10, marginTop: 18, flexWrap: "wrap" }}>
               <button className="btn btn-primary" disabled={busy || !valid || trimmed === saved}>{busy ? "Saving…" : "Save"}</button>
               {saved && <button type="button" className="btn" disabled={busy} onClick={() => { if (confirm("Clear the contract address? The site will show \"at launch\".")) save(""); }}>Clear</button>}
-              <Link href="/" className="btn btn-ghost" target="_blank">View site ↗</Link>
+              <Link href="/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">View site ↗</Link>
             </div>
           </form>
         )}

@@ -167,7 +167,7 @@ export function SignIn() {
             <div className={s.get}>
               {injected && <button type="button" disabled={busy} onClick={() => go(false)}>Connect browser wallet</button>}
               {!LIVE && <button type="button" disabled={busy} onClick={() => go(true)}>Use a demo wallet</button>}
-              {!injected && <a href="https://metamask.io/download/" target="_blank" rel="noreferrer">Get a browser wallet <Icon name="out" size={10} /></a>}
+              {!injected && <a href="https://metamask.io/download/" target="_blank" rel="noopener noreferrer">Get a browser wallet <Icon name="out" size={10} /></a>}
             </div>
           </div>
           {busy && step && <p className={s.status} role="status">{STEP_SAY[step]}</p>}
@@ -302,7 +302,7 @@ export function snippets(m: Model, base: string, o: { prompt?: string; system?: 
 
 /** window.location.origin + "/v1", after mount (SSR-safe). */
 export function useBase() {
-  const [b, setB] = useState("http://localhost:3001/v1");
+  const [b, setB] = useState("/v1"); // never a dev host in the server-rendered snippet
   useEffect(() => setB(location.origin + "/v1"), []);
   return b;
 }

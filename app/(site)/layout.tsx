@@ -26,8 +26,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <p className={s.fLogo}><Mark size={44} /><span className={s.fWord}>wisp</span></p>
             <p className={s.fLine}>Wisp is anonymized AI, paid per use. The model gets the question, never the person asking.</p>
             <div className={s.reach}>
-              <a className="btn btn-sm" href={SITE.socials.github} target="_blank" rel="noreferrer"><Icon name="code" size={12} />GitHub</a>
-              {!SITE.socials.x.startsWith("[") && <a className="btn btn-sm" href={SITE.socials.x} target="_blank" rel="noreferrer"><Icon name="x" size={12} />X</a>}
+              <a className="btn btn-sm" href={SITE.socials.github} target="_blank" rel="noopener noreferrer"><Icon name="code" size={12} />GitHub</a>
+              {!SITE.socials.x.startsWith("[") && <a className="btn btn-sm" href={SITE.socials.x} target="_blank" rel="noopener noreferrer"><Icon name="x" size={12} />X</a>}
             </div>
           </div>
           <dl className={s.manifest}>

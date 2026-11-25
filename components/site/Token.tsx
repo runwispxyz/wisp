@@ -30,7 +30,7 @@ export function ContractBox({ contract }: { contract: string }) {
         {["Chart", "Buy"].map((l) => <span key={l} className={s.tLink}>{l}<em>at launch</em></span>)}
         {pending
           ? <span className={s.tLink}>Explorer<em>at launch</em></span>
-          : <a className={s.tLink} href={`https://robinhoodchain.blockscout.com/token/${contract}`} target="_blank" rel="noreferrer">Explorer<em>Blockscout ↗</em></a>}
+          : <a className={s.tLink} href={`https://robinhoodchain.blockscout.com/token/${contract}`} target="_blank" rel="noopener noreferrer">Explorer<em>Blockscout ↗</em></a>}
       </nav>
     </div>
   );

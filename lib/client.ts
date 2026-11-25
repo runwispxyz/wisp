@@ -33,7 +33,7 @@ async function addChain(e: Eth) {
     await e.request({
       method: "wallet_addEthereumChain",
       params: [{ chainId: hex, chainName: "Robinhood Chain", rpcUrls: [RPC], nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 } }],
-    }).catch(() => {});
+    }).catch(() => {}); // best effort on purpose: SIWE sign-in works on any network; only deposits need Robinhood Chain
   }
 }
 

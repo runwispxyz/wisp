@@ -51,10 +51,10 @@ const toDataUrl = (b: Blob) => new Promise<string>((res) => { const r = new File
 
 /** All chats as JSON, media blobs inlined as data URLs. */
 export async function exportJson() {
-  const chats = await listChats();
-  for (const c of chats)
-    for (const m of c.messages)
-      if (m.media) (m.media as unknown as Record<string, unknown>).blob = await toDataUrl(m.media.blob);
+  const chats = await Promise.all((await listChats()).map(async (c) => ({
+    ...c,
+    messages: await Promise.all(c.messages.map(async (m) => (m.media ? { ...m, media: { ...m.media, blob: await toDataUrl(m.media.blob) } } : m))),
+  })));
   return new Blob([JSON.stringify({ app: "wisp-chat", exportedAt: new Date().toISOString(), chats }, null, 2)], { type: "application/json" });
 }
 
