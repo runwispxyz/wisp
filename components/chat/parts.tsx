@@ -221,7 +221,7 @@ function ReceiptLine({ r, trial }: { r: Receipt; trial: boolean }) {
             <ul style={{ margin: "2px 0 6px", paddingLeft: 18 }}>{r.removed.map((x) => <li key={x}>{x.replace(/_/g, " ")}</li>)}</ul>
             <b>Kept</b>
             <span>{r.kept}</span>
-            <span className="faint" style={{ marginTop: 6 }}>Held {usd(r.held)}, charged {usd(r.charged)}.</span>
+            <span className="faint" style={{ marginTop: 6 }}>{trial ? "Free trial: nothing was charged." : <>Held {usd(r.held)}, charged {usd(r.charged)}.</>}</span>
           </div>
         )}
       </Popover>

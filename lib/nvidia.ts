@@ -19,8 +19,10 @@ export function upstreamChat(body: Record<string, unknown>, signal?: AbortSignal
 }
 
 export async function upstreamImage(model: string, prompt: string): Promise<Buffer> {
-  const r = await fetch(`${GENAI}/${model}`, { method: "POST", headers: headers(), body: JSON.stringify({ prompt }) });
-  if (!r.ok) throw new Error(`image provider ${r.status}`);
+  // a hung host must fail the job (and release its hold) instead of leaving it "generating" forever
+  const r = await fetch(`${GENAI}/${model}`, { method: "POST", headers: headers(), body: JSON.stringify({ prompt }), signal: AbortSignal.timeout(60_000) })
+    .catch((e) => { throw new Error((e as Error).name === "TimeoutError" ? "The image host did not answer within 60 s. Nothing was charged; try again later." : "The image host could not be reached. Nothing was charged."); });
+  if (!r.ok) throw new Error(`The image host returned an error (${r.status}). Nothing was charged; try again later.`);
   const j = (await r.json()) as { artifacts?: { base64: string; finishReason?: string }[] };
   const a = j.artifacts?.[0];
   if (!a?.base64) throw new Error("image provider returned nothing");

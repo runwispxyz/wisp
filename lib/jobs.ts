@@ -29,7 +29,8 @@ export function createJob(auth: Auth | null, body: { model?: string; prompt?: st
     id, auth?.account.id ?? null, h.callId, m.id, m.kind, now(),
   );
 
-  // Runs in-process. shortcut: a server restart mid-job leaves it "running" with the hold kept; move to a queue for production.
+  // Runs in-process: a restart kills it, and releaseOrphanHolds() fails it and releases its hold at the next start.
+  // shortcut: a restart drops the job instead of retrying it; move to a queue if jobs get long or frequent.
   (async () => {
     try {
       if (m.kind !== "image") throw new Error(`No provider is wired in for ${m.kind} yet`);

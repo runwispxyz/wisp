@@ -33,6 +33,17 @@ export function settle(h: Hold, u: { cost: number; listCost: number | null; tokI
   return cost;
 }
 
+/**
+ * Run once at server start. Calls and jobs run inside the server process, so any hold still open now belongs
+ * to work the previous process never finished: release it in full and fail its job.
+ */
+export function releaseOrphanHolds() {
+  const open = db.prepare("select id, held from calls where status = 'held'").all() as { id: number; held: number }[];
+  for (const c of open) settle({ callId: c.id, held: c.held }, { cost: 0, listCost: null, failed: true });
+  db.prepare("update jobs set status = 'failed', error = ? where status = 'running'").run("Stopped by a server restart before it finished. Nothing was charged.");
+  return open.length;
+}
+
 export function credit(accountId: number, amount: number) {
   db.prepare("update accounts set balance = balance + ? where id = ?").run(amount, accountId);
 }

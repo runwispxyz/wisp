@@ -2,6 +2,9 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
   if (process.env.NEXT_PHASE === "phase-production-build") return; // never start timers while building
+  const { releaseOrphanHolds } = await import("./lib/billing");
+  const released = releaseOrphanHolds(); // before any new call can start
+  if (released) console.log(`[billing] released ${released} hold(s) left open by the last run`);
   const { startChainWatcher } = await import("./lib/chain");
   startChainWatcher();
   const { purgeOldCalls } = await import("./lib/db");
