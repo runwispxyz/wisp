@@ -31,10 +31,10 @@ export const MODELS: Model[] = [
   // on Anthropic through the official SDK (lib/anthropic.ts), at low effort; prompts capped under 100K tokens
   { id: "claude-haiku-5.5", name: "Claude Haiku 5.5", maker: "Anthropic", kind: "chat", upstream: "anthropic:claude-haiku-5-5", price: [0.15, 0.75], list: null, context: 95000 },
   { id: "nemotron-3.5-super-vl", name: "Nemotron 3.5 Super VL", maker: "NVIDIA", kind: "chat", upstream: "nvidia/nemotron-3.5-super-vl-120b-a12b", price: [0.3, 1.2], list: null, context: 128000, vision: true },
-  // image, video and music below run on kie.ai ("kie:" upstreams, lib/kie.ts); FLUX stays on NVIDIA
+  // image, video and music below run on kie.ai ("kie:" upstreams, lib/kie.ts)
   { id: "z-image", name: "Z-Image", maker: "Alibaba", kind: "image", upstream: "kie:z-image", price: [0.006], list: null, unit: "image", free: true },
   { id: "nano-banana-2-lite", name: "Nano Banana 2 Lite", maker: "Google", kind: "image", upstream: "kie:nano-banana-2-lite", price: [0.03], list: null, unit: "image" },
-  { id: "flux.1-schnell", name: "FLUX.1 schnell", maker: "Black Forest Labs", kind: "image", upstream: "black-forest-labs/flux.1-schnell", price: [0.003], list: null, unit: "image" },
+  // FLUX.1 schnell (NVIDIA, "black-forest-labs/flux.1-schnell", $0.003) is out while its host fails every call; lib/nvidia.ts upstreamImage still serves it
   { id: "seedance-2-fast", name: "Seedance 2.0 Fast", maker: "ByteDance", kind: "video", upstream: "kie:bytedance/seedance-2-fast", price: [0.16], list: null, unit: "second" },
   { id: "suno-v6-mini", name: "Suno V6 Mini", maker: "Suno", kind: "music", upstream: "kie:ai-music-api/generate", price: [0.09], list: null, unit: "song" },
 ];

@@ -99,6 +99,21 @@ export function useMe() {
 }
 export const refreshMe = () => window.dispatchEvent(new Event("wisp:refresh"));
 
+export type Health = Record<string, { ok: boolean; note: string }>;
+let healthCache: { at: number; p: Promise<Health> } | null = null; // one fetch per minute, shared by every picker
+/** Which models are answering right now, from /api/status. Empty until loaded or if the check fails. */
+export function useHealth() {
+  const [h, setH] = useState<Health>({});
+  useEffect(() => {
+    if (!healthCache || Date.now() - healthCache.at > 60_000)
+      healthCache = { at: Date.now(), p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : { models: [] })).then((j: { models?: { id: string; ok: boolean; note?: string }[] }) => Object.fromEntries((j.models ?? []).map((m) => [m.id, { ok: m.ok, note: m.note ?? "" }]))).catch(() => ({})) };
+    let live = true;
+    healthCache.p.then((x) => live && setH(x));
+    return () => { live = false; };
+  }, []);
+  return h;
+}
+
 export async function api<T = unknown>(path: string, init?: RequestInit & { json?: unknown }): Promise<T> {
   const r = await fetch(path, {
     ...init,

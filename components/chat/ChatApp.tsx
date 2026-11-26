@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Logo, Mark } from "@/components/Logo";
-import { refreshMe, runJob, short, signOut, streamChat, useMe } from "@/lib/client";
+import { refreshMe, runJob, short, signOut, streamChat, useHealth, useMe } from "@/lib/client";
 import { DEFAULT_CHAT, MODELS, SHOWN_KINDS, getModel, isSoon, mediaCost, priceLabel, usd, type Kind } from "@/lib/models";
 import { DotField, Icon, KIND_ICON, MakerMark } from "./art";
 import { ConnectModal, KIND_LABEL, MessageView, ModelPicker, Popover, PrivacyMenu, kindVar } from "./parts";
@@ -150,6 +150,8 @@ export default function ChatApp() {
   }, [chat]);
 
   const model = getModel(chat.model);
+  const health = useHealth();
+  const modelDown = model && health[model.id]?.ok === false ? health[model.id].note : "";
   const soon = isSoon(chat.mode); // video/music: shown, nothing can be generated or charged yet
   const setMode = (mode: Kind) => {
     if (busy) return;
@@ -486,7 +488,7 @@ export default function ChatApp() {
                   onChange={(e) => { setInput(e.target.value); e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; }}
                   onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
               </div>
-              {(notice || imagesDropped) && <div className={s.note}>{notice || `${model?.name} can't see images; pick a vision model or they will be left out.`}</div>}
+              {(notice || imagesDropped || modelDown) && <div className={s.note}>{notice || (imagesDropped ? `${model?.name} can't see images; pick a vision model or they will be left out.` : `${model?.name} is not working right now: ${modelDown}. A failed call costs nothing.`)}</div>}
               <div className={s.tools}>
                 <div className={s.modes} role="group" aria-label="Mode">
                   {KINDS.map((k) => (

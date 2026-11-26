@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Card, CodeTabs, ErrorNote, Head, errMsg, s, snippets, useBase, useConsoleMe } from "@/components/console/ui";
-import { refreshMe, runJob, streamChat, type Receipt } from "@/lib/client";
+import { refreshMe, runJob, streamChat, useHealth, type Receipt } from "@/lib/client";
 import { DEFAULT_CHAT, MODELS, SOON_KINDS, getModel, priceLabel, unitLabel, usd, LIVE_KINDS } from "@/lib/models";
 
 type Msg = { role: "user" | "assistant"; content: string; reasoning?: string };
@@ -12,6 +12,7 @@ export default function Playground() {
   const { me } = useConsoleMe();
   const base = useBase();
   const [modelId, setModelId] = useState(DEFAULT_CHAT);
+  const health = useHealth();
   const m = getModel(modelId) ?? MODELS[0];
   const [tab, setTab] = useState<"run" | "code">("run");
   const [system, setSystem] = useState("");
@@ -146,7 +147,7 @@ export default function Playground() {
                 <select className={s.input} value={m.id} onChange={(e) => pickModel(e.target.value)}>
                   {LIVE_KINDS.map((k) => (
                     <optgroup key={k} label={k[0].toUpperCase() + k.slice(1)}>
-                      {MODELS.filter((x) => x.kind === k).map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+                      {MODELS.filter((x) => x.kind === k).map((x) => <option key={x.id} value={x.id}>{x.name}{health[x.id]?.ok === false ? " (down right now)" : ""}</option>)}
                     </optgroup>
                   ))}
                   {SOON_KINDS.map((k) => (

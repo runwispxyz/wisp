@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { hasInjectedWallet, LIVE, signIn, type Receipt, type SignInStep } from "@/lib/client";
+import { hasInjectedWallet, LIVE, signIn, useHealth, type Receipt, type SignInStep } from "@/lib/client";
 import { HAS_LIST, MODELS, discount, getModel, priceLabel, unitLabel, usd, type Kind, type Model } from "@/lib/models";
 import { Icon, KIND_ICON, MakerMark } from "./art";
 import { Markdown, CopyButton } from "./MarkdownView";
@@ -54,6 +54,8 @@ export function ModelPicker({ mode, value, signedIn, onPick, onLocked, className
   const list = all.filter((m) => (!maker || m.maker === maker) && (m.name + " " + m.maker).toLowerCase().includes(q.trim().toLowerCase()));
   const peek = getModel(peekId) ?? cur;
   const qRef = useRef<HTMLInputElement>(null);
+  const health = useHealth();
+  const down = (id: string) => (health[id]?.ok === false ? health[id].note : "");
   const open = () => { setQ(""); setMaker(""); setPeek(value); dlg.current?.showModal(); qRef.current?.focus(); };
   const close = () => dlg.current?.close();
   const choose = (m: Model) => { close(); if (!signedIn && !m.free) onLocked(); else onPick(m.id); };
@@ -98,7 +100,7 @@ export function ModelPicker({ mode, value, signedIn, onPick, onLocked, className
                     onMouseEnter={() => setPeek(m.id)} onFocus={() => setPeek(m.id)} onClick={() => choose(m)}>
                     <MakerMark maker={m.maker} size={42} className={s.mark} />
                     <span className={s.mpMain}>
-                      <span className={s.mpRowName}>{m.name} <Badges m={m} locked={locked} /></span>
+                      <span className={s.mpRowName}>{m.name} <Badges m={m} locked={locked} down={down(m.id)} /></span>
                       <span className={s.mpSub}>{m.maker}{m.context ? ` · ${ctxLabel(m.context)}` : ` · ${unitLabel(m)}`}</span>
                     </span>
                     <span className={s.mpPrice}><b className="mono">{priceLabel(m)}</b>{m.list && <s className="mono">{priceLabel(m, true)}</s>}</span>
@@ -120,6 +122,7 @@ export function ModelPicker({ mode, value, signedIn, onPick, onLocked, className
                 <div><dt>Privacy</dt><dd><span className="pill" style={{ height: 20 }}>Anonymized</span></dd></div>
               </dl>
               <p>Wallet, IP address and device are stripped before {peek.maker} gets the prompt.</p>
+              {down(peek.id) && <p style={{ color: "var(--warn)" }}>Not working right now: {down(peek.id)}. A failed call costs nothing.</p>}
               <button type="button" className={s.mpGo} data-on={peek.id === value} onClick={() => choose(peek)}>
                 {peek.id === value ? "In use" : !signedIn && !peek.free ? "Connect a wallet to use" : "Use this model"}
               </button>
@@ -132,9 +135,10 @@ export function ModelPicker({ mode, value, signedIn, onPick, onLocked, className
   );
 }
 
-export function Badges({ m, locked }: { m: Model; locked?: boolean }) {
+export function Badges({ m, locked, down }: { m: Model; locked?: boolean; down?: string }) {
   return (
     <>
+      {down && <span className="pill" title={down} style={{ height: 18, marginLeft: 4, color: "var(--warn)" }}>down</span>}
       {m.free && !locked && <span className="pill pill-accent" style={{ height: 18, marginLeft: 4 }}>free</span>}
       {locked && <span className="pill" style={{ height: 18, marginLeft: 4 }}>wallet</span>}
       {m.vision && <span className="pill" style={{ height: 18, marginLeft: 4 }}>vision</span>}

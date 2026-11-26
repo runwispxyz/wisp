@@ -44,7 +44,9 @@ export async function GET() {
     models: MODELS.map((m) => {
       const s = stats.find((x) => x.model === m.id);
       const answers = !s || s.failed < s.n;
-      return { id: m.id, name: m.name, kind: m.kind, demo: !!m.demo, calls24h: s?.n ?? 0, failed24h: s?.failed ?? 0, ok: m.demo ? true : hostUp(m, host) && answers };
+      const up = hostUp(m, host);
+      const note = up && answers ? "" : !up && m.upstream.startsWith("kie:") ? "paused: our media host is out of credit" : !up ? "the model host is not answering" : `all ${s!.n} calls failed in the last 24 h`;
+      return { id: m.id, name: m.name, kind: m.kind, demo: !!m.demo, calls24h: s?.n ?? 0, failed24h: s?.failed ?? 0, ok: m.demo ? true : up && answers, note };
     }),
   });
 }
