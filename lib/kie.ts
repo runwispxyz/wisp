@@ -61,7 +61,36 @@ export async function kieGenerate(upstream: string, kind: Kind, prompt: string, 
     const f = await fetch(url, { signal: AbortSignal.timeout(120_000) });
     if (!f.ok) throw new Error(`The finished file could not be downloaded (${f.status}). Nothing was charged.`);
     const mime = f.headers.get("content-type")?.split(";")[0] || FALLBACK_MIME[kind];
+    void refreshKieCredits(); // keep the guard current after every spend
     return { file: Buffer.from(await f.arrayBuffer()), mime: mime === "application/octet-stream" ? FALLBACK_MIME[kind] : mime };
   }
   throw new Error("The media host took more than 12 minutes. Nothing was charged.");
 }
+
+// ---- Balance guard: a job the kie.ai balance can't cover is refused before anything is held or spent ----
+// Credits per job: z-image 0.8 and Suno 12 confirmed by real tasks on 2026-11-26; Nano Banana and Seedance 720p from kie.ai/pricing.
+const CREDITS: Record<string, (units: number) => number> = {
+  "z-image": () => 0.8,
+  "nano-banana-2-lite": () => 4,
+  "bytedance/seedance-2-fast": (s) => 24.8 * s, // 720p
+  "ai-music-api/generate": () => 12,
+};
+export const kieCost = (upstream: string, units: number) => CREDITS[upstream.replace(/^kie:/, "")]?.(units) ?? Infinity;
+
+// on globalThis: instrumentation and route handlers load separate copies of this module
+const g = globalThis as unknown as { __kieCredits?: { at: number; credits: number | null } };
+export async function refreshKieCredits() {
+  try {
+    const d = await call("/chat/credit");
+    g.__kieCredits = { at: Date.now(), credits: typeof d === "number" ? d : null };
+  } catch {
+    g.__kieCredits = { at: Date.now(), credits: null };
+  }
+}
+/** Last known balance, or null when it could not be read. */
+export const kieCredits = () => g.__kieCredits?.credits ?? null;
+/** Unknown balance counts as enough: the job itself then fails with "out of credit" and nothing is charged. */
+export const kieAffords = (upstream: string, units: number) => {
+  const c = kieCredits();
+  return c == null || c >= kieCost(upstream, units);
+};

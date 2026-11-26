@@ -10,7 +10,7 @@ import { kieGenerate } from "./kie";
 
 export type Job = { id: string; model: string; kind: string; status: string; mime: string | null; error: string | null; created: number; cost?: number };
 
-const unitsFor = (kind: string, seconds: number) => (kind === "video" ? Math.min(Math.max(Math.round(seconds), 4), 10) : 1); // Seedance takes 4-15 s
+export const unitsFor = (kind: string, seconds: number) => (kind === "video" ? Math.min(Math.max(Math.round(seconds), 4), 10) : 1); // Seedance takes 4-15 s
 const EXT: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "video/mp4": "mp4", "audio/mpeg": "mp3", "audio/mp3": "mp3", "audio/wav": "wav" };
 
 export function createJob(auth: Auth | null, body: { model?: string; prompt?: string; seconds?: number }, source: string): Response {

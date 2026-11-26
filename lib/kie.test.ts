@@ -16,3 +16,17 @@ test("tasks carry only the prompt and fixed settings, never anything about the c
   assert.equal((kieTask("kie:z-image", "x".repeat(2000), 1).input as { prompt: string }).prompt.length, 1000);
   assert.throws(() => kieTask("kie:unknown", "x", 1));
 });
+
+test("the balance guard refuses a job the media host's balance can't cover, and allows it when unknown", async () => {
+  const { kieAffords, kieCost } = await import("./kie.ts");
+  const g = globalThis as unknown as { __kieCredits?: { at: number; credits: number | null } };
+  assert.equal(kieCost("kie:bytedance/seedance-2-fast", 6), 24.8 * 6);
+  g.__kieCredits = { at: 0, credits: 18.8 };
+  assert.equal(kieAffords("kie:z-image", 1), true);
+  assert.equal(kieAffords("kie:ai-music-api/generate", 1), true);
+  assert.equal(kieAffords("kie:bytedance/seedance-2-fast", 6), false);
+  assert.equal(kieAffords("kie:unknown", 1), false);
+  g.__kieCredits = { at: 0, credits: null };
+  assert.equal(kieAffords("kie:bytedance/seedance-2-fast", 6), true);
+  delete g.__kieCredits;
+});

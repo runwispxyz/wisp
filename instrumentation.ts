@@ -7,6 +7,11 @@ export async function register() {
   if (released) console.log(`[billing] released ${released} hold(s) left open by the last run`);
   const { startChainWatcher } = await import("./lib/chain");
   startChainWatcher();
+  const { refreshKieCredits } = await import("./lib/kie");
+  if (process.env.KIE_API_KEY) {
+    void refreshKieCredits();
+    setInterval(() => void refreshKieCredits(), 5 * 60_000).unref(); // the media balance guard reads this
+  }
   const { purgeOldCalls } = await import("./lib/db");
   purgeOldCalls();
   setInterval(() => { try { purgeOldCalls(); } catch (e) { console.error("[purge]", e); } }, 3600_000).unref();
