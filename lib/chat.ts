@@ -2,6 +2,7 @@ import { getModel, chatCost, type Model } from "./models";
 import { hold, settle, type Hold } from "./billing";
 import { err, keyBlocks, type Auth } from "./auth";
 import { upstreamChat } from "./nvidia";
+import { claudeChat } from "./anthropic";
 import { buildUpstreamBody, maxOutOf, pick, type Msg } from "./upstream";
 
 /** ~4 chars per token; images count as 1k tokens. Used only for the hold, never the charge when usage comes back. */
@@ -41,7 +42,7 @@ export async function handleChat(req: Request, caller: ChatCaller, body: Record<
 
   let up: Response;
   try {
-    up = await upstreamChat(upstreamBody, req.signal);
+    up = m.upstream.startsWith("anthropic:") ? await claudeChat(m.upstream, upstreamBody, req.signal) : await upstreamChat(upstreamBody, req.signal);
   } catch {
     settle(h, { cost: 0, listCost: null, failed: true });
     return err(502, "The model host did not answer", "upstream_error");

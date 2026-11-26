@@ -2,6 +2,7 @@
 import { buildUpstreamBody, maxOutOf } from "@/lib/upstream";
 import { chatRequest } from "@/lib/nvidia";
 import { getModel } from "@/lib/models";
+import { claudeParams } from "@/lib/anthropic";
 
 /**
  * Public preview of the identity stripping: send the same body (and any headers) you would send to
@@ -15,7 +16,10 @@ export async function POST(req: Request) {
   if (!m || m.kind !== "chat") return err(404, `Unknown chat model ${body.model}`, "model_not_found");
   if (!Array.isArray(body.messages) || !body.messages.length) return err(400, "messages is required");
 
-  const out = chatRequest(buildUpstreamBody(m, body, body.messages, maxOutOf(body)));
+  const built = buildUpstreamBody(m, body, body.messages, maxOutOf(body));
+  const out = m.upstream.startsWith("anthropic:")
+    ? { url: "https://api.anthropic.com/v1/messages", headers: { "x-api-key": "<Wisp's Anthropic key, the same for every user>", "Content-Type": "application/json", "anthropic-version": "(set by the official SDK)" } as Record<string, string>, body: claudeParams(m.upstream, built as never) }
+    : chatRequest(built);
   const h = req.headers;
   return Response.json(
     {
@@ -30,10 +34,12 @@ export async function POST(req: Request) {
       // what would leave Wisp for the model host, byte for byte except the masked pooled key
       sent_to_model_host: {
         url: out.url,
-        headers: { ...out.headers, Authorization: "Bearer <Wisp's pooled key, the same for every user>" },
+        headers: "Authorization" in out.headers ? { ...out.headers, Authorization: "Bearer <Wisp's pooled key, the same for every user>" } : out.headers,
         body: out.body,
       },
-      note: "Built by the same function as a real call (lib/upstream.ts buildUpstreamBody, lib/nvidia.ts chatRequest) at the build shown in /api/status. Nothing was sent upstream, charged or stored.",
+      note: m.upstream.startsWith("anthropic:")
+        ? "Built by the same function as a real call (lib/upstream.ts buildUpstreamBody, lib/anthropic.ts claudeParams) at the build shown in /api/status. The official Anthropic SDK sends it, adding its own headers about Wisp's server (SDK version, runtime), nothing about you. Nothing was sent upstream, charged or stored."
+        : "Built by the same function as a real call (lib/upstream.ts buildUpstreamBody, lib/nvidia.ts chatRequest) at the build shown in /api/status. Nothing was sent upstream, charged or stored.",
     },
     { headers: { "Cache-Control": "no-store" } },
   );

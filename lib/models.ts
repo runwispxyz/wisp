@@ -28,6 +28,8 @@ export const MODELS: Model[] = [
   { id: "step-5-preview", name: "Step 5 Preview", maker: "StepFun", kind: "chat", upstream: "stepfun-ai/step-5-preview", price: [0.4, 1.6], list: null, context: 64000 },
   { id: "glm-5.3-flash", name: "GLM 5.3 Flash", maker: "Z.ai", kind: "chat", upstream: "z-ai/glm-5.3-flash", price: [0.1, 0.4], list: null, context: 128000 },
   { id: "kimi-k3.1-pro", name: "Kimi K3.1 Pro", maker: "Moonshot", kind: "chat", upstream: "moonshotai/kimi-k3.1-pro", price: [1, 5], list: null, context: 256000 },
+  // on Anthropic through the official SDK (lib/anthropic.ts), at low effort; prompts capped under 100K tokens
+  { id: "claude-haiku-5.5", name: "Claude Haiku 5.5", maker: "Anthropic", kind: "chat", upstream: "anthropic:claude-haiku-5-5", price: [0.15, 0.75], list: null, context: 95000 },
   { id: "nemotron-3.5-super-vl", name: "Nemotron 3.5 Super VL", maker: "NVIDIA", kind: "chat", upstream: "nvidia/nemotron-3.5-super-vl-120b-a12b", price: [0.3, 1.2], list: null, context: 128000, vision: true },
   // image, video and music below run on kie.ai ("kie:" upstreams, lib/kie.ts); FLUX stays on NVIDIA
   { id: "z-image", name: "Z-Image", maker: "Alibaba", kind: "image", upstream: "kie:z-image", price: [0.006], list: null, unit: "image", free: true },
