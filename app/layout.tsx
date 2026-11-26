@@ -9,7 +9,7 @@ const hero = Inter_Tight({ subsets: ["latin"], weight: ["300"], variable: "--fon
 
 export const metadata: Metadata = {
   title: { default: "Wisp · Anonymized AI, paid per use", template: "%s · Wisp" },
-  description: "One wallet and one key for chat and image models, with your identity removed before any model sees a request.",
+  description: "One wallet and one key for chat, image, video and music models, with your identity removed before any model sees a request.",
   icons: { icon: [{ url: "/icon.png", type: "image/png" }, { url: "/favicon-32.png", sizes: "32x32", type: "image/png" }], apple: "/apple-icon.png" },
 };
 export const viewport: Viewport = { themeColor: "#171717", width: "device-width", initialScale: 1 };

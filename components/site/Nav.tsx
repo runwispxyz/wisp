@@ -16,7 +16,7 @@ const GROUPS: Group[] = [
   {
     label: "Products",
     items: [
-      { href: "/chat", icon: "chat", t: "Wisp Chat", d: "Chat and image models with your identity removed", live: true },
+      { href: "/chat", icon: "chat", t: "Wisp Chat", d: "Chat, image, video and music with your identity removed", live: true },
       { href: "/console", icon: "grid", t: "Wisp Console", d: "Keys, usage, credit and the Playground", live: true },
       { href: "/console/playground", icon: "code", t: "Playground", d: "Try any model with your own settings", live: true },
       { href: "/console/sealed", icon: "lock", t: "Sealed models", d: "Open-weight models on attested hardware", soon: true },

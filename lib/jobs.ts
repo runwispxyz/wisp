@@ -6,10 +6,12 @@ import { hold, settle } from "./billing";
 import { getModel, mediaCost } from "./models";
 import { err, keyBlocks, type Auth } from "./auth";
 import { upstreamImage } from "./nvidia";
+import { kieGenerate } from "./kie";
 
 export type Job = { id: string; model: string; kind: string; status: string; mime: string | null; error: string | null; created: number; cost?: number };
 
-const unitsFor = (kind: string, seconds: number) => (kind === "video" ? Math.min(Math.max(seconds, 2), 10) : 1);
+const unitsFor = (kind: string, seconds: number) => (kind === "video" ? Math.min(Math.max(Math.round(seconds), 4), 10) : 1); // Seedance takes 4-15 s
+const EXT: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "video/mp4": "mp4", "audio/mpeg": "mp3", "audio/mp3": "mp3", "audio/wav": "wav" };
 
 export function createJob(auth: Auth | null, body: { model?: string; prompt?: string; seconds?: number }, source: string): Response {
   const m = getModel(String(body.model || ""));
@@ -33,9 +35,10 @@ export function createJob(auth: Auth | null, body: { model?: string; prompt?: st
   // shortcut: a restart drops the job instead of retrying it; move to a queue if jobs get long or frequent.
   (async () => {
     try {
-      if (m.kind !== "image") throw new Error(`No provider is wired in for ${m.kind} yet`);
-      const [file, mime, ext] = [await upstreamImage(m.upstream, prompt), "image/jpeg", "jpg"];
-      const name = `${id}.${ext}`;
+      const { file, mime } = m.upstream.startsWith("kie:")
+        ? await kieGenerate(m.upstream, m.kind as "image" | "video" | "music", prompt, units)
+        : { file: await upstreamImage(m.upstream, prompt), mime: "image/jpeg" };
+      const name = `${id}.${EXT[mime] ?? "bin"}`;
       writeFileSync(path.join(JOBS_DIR, name), file);
       settle(h, { cost, listCost: mediaCost(m, units, true), units });
       db.prepare("update jobs set status = 'succeeded', file = ?, mime = ? where id = ?").run(name, mime, id);

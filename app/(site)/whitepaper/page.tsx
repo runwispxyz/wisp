@@ -24,7 +24,7 @@ export default async function Whitepaper() {
         ] },
         { id: "design", title: "Design", body: [
           "The client signs one Sign-In with Ethereum message. The server checks the signature and issues an httpOnly session cookie. No email, no password.",
-          `All traffic goes through one gateway. It speaks the OpenAI chat completions format, so existing SDKs work by changing base_url. Images run as jobs on the same key; video and music come next. The catalog today holds ${MODELS.length} models.`,
+          `All traffic goes through one gateway. It speaks the OpenAI chat completions format, so existing SDKs work by changing base_url. Images, video and music run as jobs on the same key, on kie.ai, which keeps the prompt in its logs for 2 months and the file for 14 days. The catalog today holds ${MODELS.length} models.`,
           "Each request is processed in four steps: authenticate, hold the worst-case cost, strip identity and forward under a shared key, then settle to the real usage.",
         ] },
         { id: "tiers", title: "Privacy tiers", body: [

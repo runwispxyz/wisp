@@ -13,7 +13,7 @@ export default function About() {
       lead="Wisp is anonymized AI inference, paid per use. We build the gateway, the chat app and the console, and we try to know as little about you as we can."
       sections={[
         { id: "what", title: "What Wisp is", body: [
-          `One wallet, one balance and one key for ${MODELS.length} chat and image models. Every request passes ${SITE.gateway}, where your identity comes off and the cost is held before the model is called.`,
+          `One wallet, one balance and one key for ${MODELS.length} chat, image, video and music models. Every request passes ${SITE.gateway}, where your identity comes off and the cost is held before the model is called.`,
           "You can use it from Wisp Chat in the browser, or from your own code with the OpenAI SDK you already use.",
         ] },
         { id: "build", title: "What we build", body: [

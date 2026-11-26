@@ -29,7 +29,12 @@ export const MODELS: Model[] = [
   { id: "glm-5.3-flash", name: "GLM 5.3 Flash", maker: "Z.ai", kind: "chat", upstream: "z-ai/glm-5.3-flash", price: [0.1, 0.4], list: null, context: 128000 },
   { id: "kimi-k3.1-pro", name: "Kimi K3.1 Pro", maker: "Moonshot", kind: "chat", upstream: "moonshotai/kimi-k3.1-pro", price: [1, 5], list: null, context: 256000 },
   { id: "nemotron-3.5-super-vl", name: "Nemotron 3.5 Super VL", maker: "NVIDIA", kind: "chat", upstream: "nvidia/nemotron-3.5-super-vl-120b-a12b", price: [0.3, 1.2], list: null, context: 128000, vision: true },
-  { id: "flux.1-schnell", name: "FLUX.1 schnell", maker: "Black Forest Labs", kind: "image", upstream: "black-forest-labs/flux.1-schnell", price: [0.003], list: null, unit: "image", free: true },
+  // image, video and music below run on kie.ai ("kie:" upstreams, lib/kie.ts); FLUX stays on NVIDIA
+  { id: "z-image", name: "Z-Image", maker: "Alibaba", kind: "image", upstream: "kie:z-image", price: [0.006], list: null, unit: "image", free: true },
+  { id: "nano-banana-2-lite", name: "Nano Banana 2 Lite", maker: "Google", kind: "image", upstream: "kie:nano-banana-2-lite", price: [0.03], list: null, unit: "image" },
+  { id: "flux.1-schnell", name: "FLUX.1 schnell", maker: "Black Forest Labs", kind: "image", upstream: "black-forest-labs/flux.1-schnell", price: [0.003], list: null, unit: "image" },
+  { id: "seedance-2-fast", name: "Seedance 2.0 Fast", maker: "ByteDance", kind: "video", upstream: "kie:bytedance/seedance-2-fast", price: [0.16], list: null, unit: "second" },
+  { id: "suno-v6-mini", name: "Suno V6 Mini", maker: "Suno", kind: "music", upstream: "kie:ai-music-api/generate", price: [0.09], list: null, unit: "song" },
 ];
 
 export const getModel = (id: string) => MODELS.find((m) => m.id === id);

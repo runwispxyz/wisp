@@ -437,7 +437,7 @@ export default function ChatApp() {
             <section className={s.welcome}>
               <DotField variant="wisp" className={s.stage} base={0.05} />
               <h1>Make anything. Keep it to <em className="serif" style={{ fontStyle: "italic", color: "var(--accent)", letterSpacing: "-0.02em" }}>yourself</em>.</h1>
-              <p>Chat and images on one balance, with video and music coming soon. Your wallet, IP and device are stripped off before a model sees a word.</p>
+              <p>Chat, images, video and music on one balance. Your wallet, IP and device are stripped off before a model sees a word.</p>
               <div className={s.starts}>
                 {SUGGESTIONS.map((g) => {
                   const m = getModel(pickModel(g.kind, signedIn));

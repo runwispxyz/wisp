@@ -202,7 +202,7 @@ export function SignInPage({ title, sub }: { title: string; sub: string }) {
               ))}
             </div>
             <div className={s.siFoot}>
-              <p className={s.lbl}>{MODELS.length} models from {makers} makers behind one key{HAS_LIST ? <>, {under} of them priced under their maker&apos;s list</> : null}. Video and music are coming soon.</p>
+              <p className={s.lbl}>{MODELS.length} models from {makers} makers behind one key{HAS_LIST ? <>, {under} of them priced under their maker&apos;s list</> : null}.</p>
               <Link href="/console/models" className={s.btn}>See every model</Link>
             </div>
           </section>

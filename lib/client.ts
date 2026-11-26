@@ -151,7 +151,7 @@ export async function streamChat(
 export async function runJob(body: { model: string; prompt: string; seconds?: number }, onStatus?: (s: string) => void) {
   const j = await api<{ id: string; held: number }>("/v1/jobs", { method: "POST", json: body });
   onStatus?.("running");
-  for (let t = 0; t < 120; t++) {
+  for (let t = 0; t < 520; t++) { // ~13 min: video jobs can take minutes
     await new Promise((r) => setTimeout(r, 1500));
     const s = await api<{ status: string; error: string | null; mime: string; charged: number | null }>(`/v1/jobs/${j.id}`);
     if (s.status === "failed") throw new Error(s.error || "Job failed");

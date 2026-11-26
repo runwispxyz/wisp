@@ -24,7 +24,7 @@ const topSave = Math.max(...MODELS.map((m) => discount(m) ?? 0));
 const cheapIn = Math.min(...MODELS.filter((m) => m.kind === "chat").map((m) => m.price[0]));
 
 const FEATURES: { t: string; d: string; chips: [string, boolean?, boolean?][]; icon: string; scene: Scene; span: string }[] = [
-  { t: "One key, many models", d: "Chat and image models behind one wallet, one balance and one key. Video and music are coming soon.", chips: [["wsp_3k9…a1c", false, true], [`${MODELS.length} models on this key`, true]], icon: "key", scene: "key", span: s.f7 },
+  { t: "One key, many models", d: "Chat, image, video and music models behind one wallet, one balance and one key.", chips: [["wsp_3k9…a1c", false, true], [`${MODELS.length} models on this key`, true]], icon: "key", scene: "key", span: s.f7 },
   { t: "Identity removed", d: "Your wallet, IP address and user agent come off before a request leaves us. Calls go out under one shared key.", chips: [["IP removed"], ["user agent removed"], ["shared key", true]], icon: "shield", scene: "scan", span: s.f5 },
   { t: "Sealed models", d: "Not built yet. The plan: a few open-weight models on attested hardware that neither the host nor Wisp can read. Until then every model is Anonymized.", chips: [["not built yet", true], ["planned"]], icon: "lock", scene: "rings", span: s.f4 },
   { t: "History in your browser", d: "Chats and media live on your device. Export them or wipe them whenever you like.", chips: [["local only"], ["export"], ["wipe"]], icon: "screen", scene: "grid", span: s.f4 },
@@ -52,7 +52,7 @@ export default function Home() {
             <span><em className={s.inkA}>Wisp</em> sends the <em className={s.inkB}>question</em>,</span>
             <span>never <em className={s.inkC}>who asked</em></span>
           </h1>
-          <p className={s.heroLine}>Chat and image models, paid per use, with no copy of your prompts or replies kept.{HC && ` Holding ${SITE.ticker} earns model credit every hour.`}</p>
+          <p className={s.heroLine}>Chat, image, video and music, paid per use. Wisp keeps no copy of your prompts or replies.{HC && ` Holding ${SITE.ticker} earns model credit every hour.`}</p>
           <HeroCA contract={contract} />
         </div>
         <div className={s.heroFoot}><AskBox /></div>
@@ -121,7 +121,7 @@ export default function Home() {
       <section className={`${s.band} ${s.clipX}`}>
         <Edge l={1} m={1} r={0} />
         <Head layout="center" icon="chat" label="Wisp Chat" note="the app" lit="Every model in one window," title="with a receipt on every reply"
-          lede="Chat and images sit behind one wallet. Each answer shows what it cost and exactly what reached the model." />
+          lede="Chat, images, video and music sit behind one wallet. Each answer shows what it cost and exactly what reached the model." />
         <Showcase />
         <div className={s.fanFoot} style={{ marginTop: 18 }}>
           <Link href="/chat" className="btn btn-primary">Open Wisp Chat</Link>
@@ -132,7 +132,7 @@ export default function Home() {
       <section className={`${s.band} ${s.clipX}`} id="catalog">
         <Edge l={1} m={0} r={1} />
         <Head icon="grid" label="Catalog" note={`${MODELS.length} models`} lit="Every model we run," title={HAS_LIST ? "priced next to its list price" : "with its price up front"} glow={1}
-          lede={<>Chat and image models answer on one key, each with its price per use shown before you call it. Press <kbd className={s.sKey}>/</kbd> to search.</>} />
+          lede={<>Every model answers on one key, each with its price per use shown before you call it. Press <kbd className={s.sKey}>/</kbd> to search.</>} />
         <div className={s.inner}><Catalog /></div>
       </section>
 
@@ -187,7 +187,7 @@ export default function Home() {
 
       <section className={s.band}>
         <Edge l={0} m={1} r={1} />
-        <Head icon="image" label="Image, video and music" note="video and music soon" lit="Know the price" title="before you press generate" glow={3}
+        <Head icon="image" label="Image, video and music" note="video and music live" lit="Know the price" title="before you press generate" glow={3}
           lede="The cost is shown up front, held while the job runs, and charged only for what actually arrives." />
         <ul className={s.gGrid}>
           {MEDIA.map((x) => {

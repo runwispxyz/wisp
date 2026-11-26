@@ -67,6 +67,7 @@ export const POSTS: Post[] = [
 
 export const CHANGELOG: { date: string; title: string; items: string[] }[] = [
   // Real dates only: the domain, the repo and the first deploy are all from 2026-11-25.
+  { date: "2026-11-26", title: "Video and music are live", items: ["Image, video and music jobs now run on kie.ai: Z-Image (free in the trial), Nano Banana 2 Lite, Seedance 2.0 Fast for video and Suno V6 Mini for music.", "kie.ai gets the prompt and the settings, sent with Wisp's key, never your wallet, IP or device. It keeps the prompt in its logs for 2 months and the file for 14 days; Wisp deletes its copy once you download it.", "Image jobs time out after 60 s on a hung host, and a server restart releases any hold it left open."] },
   { date: "2026-11-26", title: "Plainer wording, open source", items: ["The site says Anonymized, not Private, and states that Wisp keeps one billing row per call tied to your account.", "Swap-tax and holder-reward claims removed; Holder Credit is shown as planned until it is switched on.", "The source is public on GitHub, with tests and a CI check on every push.", "Wisp Chat now tells you when the browser cannot save or load your chats.", "Per-call billing rows are deleted after 30 days."] },
   { date: "2026-11-25", title: "Public launch", items: ["Wisp Chat, Wisp Console and the OpenAI-compatible API open at runwisp.xyz.", "Sign in by signing one message, no email and no password. Top up in USDG on Robinhood Chain to your own deposit address.", "Every call holds its worst case, then settles to what it used, and streams end with a receipt. A call that fails before any output releases its hold in full.", "Image jobs run on the same key, priced before they run; results are deleted from our servers once fetched.", "Status page refreshed every 30 seconds, and a free trial on the home page without a wallet."] },
 ];
@@ -75,7 +76,7 @@ export const ROADMAP: { label: string; state: "live" | "next" | "later" }[] = [
   { label: "One key for every model in the catalog", state: "live" },
   { label: "Wallet sign-in and USDG top-ups", state: "live" },
   { label: "Image jobs", state: "live" },
-  { label: "Video and music jobs", state: "next" },
+  { label: "Video and music jobs", state: "live" },
   { label: "Wisp Chat and Wisp Console", state: "live" },
   { label: "Sealed models on attested hardware", state: "next" },
   { label: "Paying in $WISP and hourly Holder Credit", state: "next" },
@@ -84,6 +85,7 @@ export const ROADMAP: { label: string; state: "live" | "next" | "later" }[] = [
 ];
 
 export const FAQ: { q: string; a: string }[] = [
+  { q: "Who makes the images, video and music?", a: "kie.ai runs them for Wisp. It gets your prompt and the settings, sent with Wisp's own key, never your wallet, IP or device. kie.ai keeps the prompt in its request logs for 2 months and the generated file for 14 days. Wisp downloads the file, hands it to you once, then deletes its copy." },
   { q: "Can I check any of this myself?", a: "Partly, and here is exactly how. The code is public, and the footer and /api/status show the commit the live site was built from. POST the body you would send to /v1/chat/completions to /v1/outgoing instead: it returns, side by side, what reached Wisp (your IP, user agent, key, cookies) and the exact request Wisp would forward to the model host, built by the same code as a real call, without sending or charging anything. /api/status shows how many billing rows exist and how old the oldest is; it should never pass 30 days. The proxy config in deploy/ writes no access log. What you still have to trust: that our server runs that build and keeps to it. Only Sealed models, which are not built yet, would remove that trust." },
   { q: "What does anonymized mean on Wisp?", a: "Your wallet, IP address and client details are stripped before a request leaves us, and the call goes out under a shared key. We keep no copy of prompts or replies, but we do keep one billing row per call (model, tokens, cost) tied to your account, so Wisp itself knows which account made each call. Those rows are deleted after 30 days. The host still reads the content to answer it, so today's tier is called Anonymized. Sealed models, coming next, run on attested hardware that no one can read." },
   { q: "How are prices set?", a: "Each model has a Wisp price per use, shown before every call and on every receipt. We only compare with a maker's list price once we have checked it on the maker's own page." },
