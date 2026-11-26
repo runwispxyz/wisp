@@ -28,6 +28,7 @@ create table if not exists deposits (
 create table if not exists codes (code text primary key, amount integer not null);
 create table if not exists redemptions (code text, account_id integer, created integer, primary key (code, account_id));
 create table if not exists trial (client_hash text primary key, used integer not null default 0, media integer not null default 0);
+create table if not exists trial_daily (day text primary key, media integer not null default 0);
 create table if not exists jobs (
   id text primary key, account_id integer, call_id integer, model text not null, kind text not null,
   status text not null, file text, mime text, error text, created integer not null);
